@@ -2,38 +2,45 @@ local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
-require("cmp_nvim_lsp").setup()
-
-local function feedkeys_t(str)
-  vim.fn.feedkeys(vim.api.nvim_replace_termcodes(str, true, true, true), "")
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local function tabcomplete(_, fallback)
+local function check_back_space()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
+
+local function tab_complete(fallback)
   if vim.fn.pumvisible() == 1 then
-    feedkeys_t("<C-n>")
+    vim.fn.feedkeys(t("<C-n>"), "n")
   elseif luasnip.expand_or_jumpable() then
-    feedkeys_t("<Plug>luasnip-expand-or-jump")
+    vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+  elseif check_back_space() then
+    vim.fn.feedkeys(t("<TAB>"), "n")
   else
     fallback()
   end
 end
 
-local function shifttabcomplete(_, fallback)
+local function shift_tab_complete(fallback)
   if vim.fn.pumvisible() == 1 then
-    feedkeys_t("<C-p>")
+    vim.fn.feedkeys(t("<C-p>"), "n")
   elseif luasnip.jumpable(-1) then
-    feedkeys_t("<Plug>luasnip-expand-or-jump")
+    vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
   else
     fallback()
   end
 end
+
+require("cmp_nvim_lsp").setup()
 
 cmp.setup {
   mapping = {
-    ['<TAB>'] = cmp.mapping.mode({ "i", "s" }, tabcomplete),
-    ['<S-TAB>'] = cmp.mapping.mode({ "i", "s" }, shifttabcomplete),
-    ['<C-d>'] = cmp.mapping.scroll(-4),
-    ['<C-f>'] = cmp.mapping.scroll(4),
+    ['<TAB>'] = cmp.mapping(tab_complete, { "i", "s" }),
+    ['<S-TAB>'] = cmp.mapping(shift_tab_complete, { "i", "s" }),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
