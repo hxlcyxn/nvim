@@ -33,8 +33,6 @@ local function shift_tab_complete(fallback)
   end
 end
 
-require("cmp_nvim_lsp").setup()
-
 cmp.setup {
   mapping = {
     ['<TAB>'] = cmp.mapping(tab_complete, { "i", "s" }),
