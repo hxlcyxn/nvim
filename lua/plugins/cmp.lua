@@ -1,4 +1,5 @@
 local cmp = require("cmp")
+local compare = require("cmp.config.compare")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
@@ -47,21 +48,41 @@ cmp.setup {
     },
   },
   documentation = { border = "solid" },
+  sorting = {
+    comparators = {
+      compare.score,
+      compare.kind,
+      compare.offset,
+      compare.exact,
+      compare.length,
+      compare.sort_text,
+      compare.order,
+    },
+  },
   sources = {
-    { name = "buffer" },
-    { name = "emoji" },
-    { name = "latex_symbols" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "path" },
+    { name = "buffer" },
+    { name = "emoji" },
+    { name = "latex_symbols" },
   },
   snippet = {
     expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
   formatting = {
-    format = function(_, vim_item)
+    format = function(entry, vim_item)
       vim_item.kind = lspkind.presets.default[vim_item.kind]
+      vim_item.menu = ({
+        buffer = "[BUF]",
+        path = "[PATH]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[VIM]",
+        luasnip = "[SNP]",
+        emoji = "[EMO]",
+        latex_symbols = "[LTX]",
+      })[entry.source.name]
       return vim_item
     end,
   },
