@@ -7,11 +7,7 @@ end
 
 local cl = require("plugins.colours")[colorscheme]
 
-local components = {
-  left = { active = {}, inactive = {} },
-  mid = { active = {}, inactive = {} },
-  right = { active = {}, inactive = {} },
-}
+local components = { active = {}, inactive = {} }
 
 local vi_mode_colors = {
   NORMAL = "yellow",
@@ -51,9 +47,9 @@ local position = { provider = "position", hl = { fg = "yellow" } }
 
 local line_percentage = { provider = "line_percentage", hl = { fg = "yellow" } }
 
-components.left.active = { vi_mode, sep " ", filename }
-components.mid.active = {}
-components.right.active = {
+components.active[1] = { vi_mode, sep " ", filename }
+components.active[2] = {}
+components.active[3] = {
   git_branch,
   sep " ",
   position,
