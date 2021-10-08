@@ -14,7 +14,7 @@ end
 
 local function tab_complete(fallback)
   if vim.fn.pumvisible() == 1 then
-    vim.fn.feedkeys(t("<C-n>"), "n")
+    cmp.select_next_item()
   elseif luasnip.expand_or_jumpable() then
     vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
   elseif check_back_space() then
@@ -26,7 +26,7 @@ end
 
 local function shift_tab_complete(fallback)
   if vim.fn.pumvisible() == 1 then
-    vim.fn.feedkeys(t("<C-p>"), "n")
+    cmp.select_prev_item()
   elseif luasnip.jumpable(-1) then
     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
   else
@@ -35,6 +35,7 @@ local function shift_tab_complete(fallback)
 end
 
 cmp.setup {
+  completion = { completeopt = "menu,menuone,noinsert" },
   mapping = {
     ['<TAB>'] = cmp.mapping(tab_complete, { "i", "s" }),
     ['<S-TAB>'] = cmp.mapping(shift_tab_complete, { "i", "s" }),
