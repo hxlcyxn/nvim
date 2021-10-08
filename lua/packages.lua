@@ -160,10 +160,11 @@ return require("packer").startup {
       config = [[require("colorizer").setup { "*", "!packer" }]],
     }
 
-    local ayu_themes = { luxed = "Luxed/ayu-vim", nvim = "Shatur95/neovim-ayu" }
     use {
-      ayu_themes[_G.Settings.ayu_ver],
-      config = [[vim.cmd("colorscheme ayu")]],
+      "Shatur/neovim-ayu",
+      config = string.format(
+        [[require("ayu").setup {mirage = %s }]], _G.Settings.ayu_mirage
+      ) .. " " .. [[require("ayu").colorscheme()]],
     }
 
     local other_themes = { xresources = "nekonako/xresources-nvim" }
