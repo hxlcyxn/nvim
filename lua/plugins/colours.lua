@@ -1,10 +1,10 @@
 local M = {}
 
 M.ayu_light = {
-  fg = "#575f66",
+  fg1 = "#575f66",
   fg2 = "#eff0f1",
-  bg1 = "#cdd0d3",
-  bg2 = "#ffffff",
+  bg1 = "#ffffff",
+  bg2 = "#cdd0d3",
   red = "#f51818",
   green = "#99bf4d",
   yellow = "#ff9940",
@@ -14,10 +14,10 @@ M.ayu_light = {
 }
 
 M.ayu_dark = {
-  fg = "#b3b1ad",
+  fg1 = "#b3b1ad",
   fg2 = "#00010a",
-  bg1 = "#323945",
-  bg2 = "#0d1016",
+  bg1 = "#0d1016",
+  bg2 = "#323945",
   red = "#ff3333",
   green = "#91b362",
   yellow = "#ff8f40",

@@ -58,10 +58,10 @@ components.active[3] = {
 }
 
 feline.setup {
-  colors = cl,
+  colors = vim.tbl_extend("force", cl, { fg = cl.fg1, bg = cl.bg1 }),
   vi_mode_colors = vi_mode_colors,
-  default_bg = "bg2",
-  default_fg = "fg1",
+  -- default_bg = "bg2",
+  -- default_fg = "fg1",
   components = components,
 }
 
