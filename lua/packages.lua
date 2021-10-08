@@ -18,6 +18,11 @@ return require("packer").startup {
     use { "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] }
     use { "onsails/lspkind-nvim" }
     use { "ray-x/lsp_signature.nvim" }
+    use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
+    use {
+      "kosayoda/nvim-lightbulb",
+      config = [[vim.cmd "autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()"]],
+    }
 
     use {
       "hrsh7th/nvim-cmp",
