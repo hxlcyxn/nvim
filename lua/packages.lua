@@ -114,10 +114,12 @@ return require("packer").startup {
       config = [[vim.api.nvim_exec("autocmd BufRead * DetectIndent", true)]],
     }
     use { "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] }
+    use { "sindrets/diffview.nvim", config = [[require("diffview").setup {}]] }
     use {
       "TimUntersberger/neogit",
+      requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
       cmd = "Neogit",
-      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require("neogit").setup { integrations = { diffview = true } }]],
     }
     use {
       "kyazdani42/nvim-tree.lua",
