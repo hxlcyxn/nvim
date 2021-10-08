@@ -17,7 +17,6 @@ return require("packer").startup {
     -- lsp etc {{{
     use { "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] }
     use { "onsails/lspkind-nvim" }
-    use { "glepnir/lspsaga.nvim", config = [[require("plugins.lspsaga")]] }
     use { "ray-x/lsp_signature.nvim" }
 
     use {

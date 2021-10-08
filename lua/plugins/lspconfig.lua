@@ -14,14 +14,14 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     }
   )
 
-local on_attach = function(client)
-  require("lsp_signature").on_attach {
-    bind = false, -- true if without lspsaga
-    doc_lines = 3,
-    hint_enable = true,
-    hint_prefix = "ƒ ",
-    use_lspsaga = true,
-  }
+local on_attach = function(client, bufnr)
+  require("lsp_signature").on_attach(
+    {
+      bind = true,
+      doc_lines = 0,
+      hint_prefix = "ƒ ",
+    }, bufnr
+  )
 
   h.buf_setoption { omnifunc = "v:lua.vim.lsp.omnifunc" }
   -- Keybindings for LSPs
