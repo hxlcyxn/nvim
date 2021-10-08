@@ -73,9 +73,10 @@ cmp.setup {
     expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
   formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
-      vim_item.menu = ({
+    format = lspkind.cmp_format {
+      preset = "default",
+      with_text = false,
+      menu = {
         buffer = "[BUF]",
         path = "[PATH]",
         nvim_lsp = "[LSP]",
@@ -83,8 +84,7 @@ cmp.setup {
         luasnip = "[SNP]",
         emoji = "[EMO]",
         latex_symbols = "[LTX]",
-      })[entry.source.name]
-      return vim_item
-    end,
+      },
+    },
   },
 }
