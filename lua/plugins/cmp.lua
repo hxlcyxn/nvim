@@ -35,7 +35,6 @@ local function shift_tab_complete(fallback)
 end
 
 cmp.setup {
-  completion = { completeopt = "menu,menuone,noinsert" },
   mapping = {
     ['<TAB>'] = cmp.mapping(tab_complete, { "i", "s" }),
     ['<S-TAB>'] = cmp.mapping(shift_tab_complete, { "i", "s" }),
@@ -87,4 +86,5 @@ cmp.setup {
       },
     },
   },
+  experimental = { ghost_text = true },
 }
