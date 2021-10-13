@@ -30,6 +30,12 @@ wk.register(
       i = { vim.lsp.buf.implementation, "show implementation" },
       F = { vim.lsp.buf.formatting, "format file with lsp formatter" },
     },
+    d = {
+      name = "debugging",
+      b = { require("dap").toggle_breakpoint, "toggle breakpoint" },
+      u = { require("dapui").toggle, "toggle dapui" },
+      c = { require("dap").continue, "continue" },
+    },
     f = {
       name = "files",
       a = { cmd "Telescope live_grep", "grep files" },

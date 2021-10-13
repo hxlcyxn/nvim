@@ -37,15 +37,21 @@ return require("packer").startup {
       },
       config = [[require("plugins.cmp")]],
     }
-
     use { "L3MON4D3/LuaSnip", config = [[require("plugins.luasnip")]] }
     use { "rafamadriz/friendly-snippets" }
+
+    use {
+      "mfussenegger/nvim-dap",
+      requires = { "rcarriga/nvim-dap-ui" },
+      config = [[require("plugins.dap")]],
+    }
 
     use {
       "simrat39/rust-tools.nvim",
       ft = "rust",
       config = [[require("plugins.rusttools")]],
     }
+
     use {
       "mhartington/formatter.nvim",
       cmd = { "Format", "FormatWrite" },
