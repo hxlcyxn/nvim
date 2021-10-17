@@ -8,11 +8,7 @@ vim.opt.sidescrolloff = 5
 
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
-if _G.Settings.background == "light" then
-  vim.opt.background = "light"
-else
-  vim.opt.background = "dark"
-end
+vim.opt.background = _G.Settings.background
 
 vim.opt.laststatus = 2
 
