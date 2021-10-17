@@ -137,7 +137,6 @@ return require("packer").startup {
     }
     use {
       "kyazdani42/nvim-tree.lua",
-      cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
       requires = { "kyazdani42/nvim-web-devicons" },
       config = [[require("plugins.nvimtree")]],
     }
