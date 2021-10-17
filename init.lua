@@ -11,9 +11,9 @@ _G.Settings = {
   indent = 2, -- your indentation size, spaces > tabs
 }
 
+if package.loaded["impatient"] then require("impatient").enable_profile() end
+
 require("options")
 require("packages")
--- require("keys")
--- require("stylish")
 
 vim.cmd("au VimLeave * set guicursor=a:hor20-blinkon0")

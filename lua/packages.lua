@@ -13,6 +13,8 @@ return require("packer").startup {
   function(use)
     -- generic stuff {{{
     use { "wbthomason/packer.nvim" }
+
+    use { "lewis6991/impatient.nvim" }
     -- }}}
     -- lsp etc {{{
     use { "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] }
