@@ -44,6 +44,7 @@ wk.register(
       h = { cmd "Telescope oldfiles", "file hsitory" },
       n = { cmd "enew", "new file" },
     },
+    g = { cmd "Neogit", "git" },
   }, { prefix = "<leader>" }
 )
 
