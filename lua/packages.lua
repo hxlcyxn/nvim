@@ -21,6 +21,7 @@ return require("packer").startup {
     use { "onsails/lspkind-nvim" }
     use { "ray-x/lsp_signature.nvim" }
     use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
+    use { "simrat39/symbols-outline.nvim" }
     use {
       "kosayoda/nvim-lightbulb",
       config = [[vim.cmd "autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()"]],
