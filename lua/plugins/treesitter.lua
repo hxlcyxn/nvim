@@ -69,4 +69,6 @@ M.rainbow = function()
   }
 end
 
+M.context = function() require("treesitter-context").setup {} end
+
 return M

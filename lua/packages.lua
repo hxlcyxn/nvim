@@ -108,6 +108,11 @@ return require("packer").startup {
       config = [[require("plugins.treesitter").rainbow()]],
     }
     use {
+      "romgrk/nvim-treesitter-context",
+      config = [[require("plugins.treesitter").context()]],
+    }
+
+    use {
       "eraserhd/parinfer-rust",
       run = "cargo build --release",
       ft = { "fennel", "lisp", "yuck" },
