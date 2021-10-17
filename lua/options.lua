@@ -54,4 +54,6 @@ vim.opt.hidden = true
 
 vim.opt.shortmess:append("c")
 
+vim.opt.guifont = "FiraCode NF:h14"
+
 vim.cmd("let &fcs='eob: '")
