@@ -59,7 +59,7 @@ cmp.setup {
       compare.order,
     },
   },
-  sources = {
+  sources = cmp.config.sources {
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
