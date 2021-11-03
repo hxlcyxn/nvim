@@ -32,7 +32,9 @@ vim.opt.softtabstop = _G.Settings.indent
 vim.opt.shiftwidth = _G.Settings.indent
 vim.opt.smartindent = true
 vim.opt.copyindent = false
-vim.opt.expandtab = true
+if _G.Settings.indent_style == "spaces" then
+	vim.opt.expandtab = true
+end
 
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
