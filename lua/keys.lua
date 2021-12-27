@@ -45,11 +45,10 @@ wk.register({
 		n = { cmd("enew"), "new file" },
 	},
 	g = { cmd("Neogit"), "git" },
+	p = { name = "packer", s = { require("packer").sync, "sync plugins" }, S = { require("packer").status, "packer status" } },
 }, {
 	prefix = "<leader>",
 })
-
-h.noremap("", "<M-r>", ":nohl<CR><C-l>")
 
 h.noremap("t", "<Esc>", "<C-\\><C-n>")
 

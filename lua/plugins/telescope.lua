@@ -24,3 +24,5 @@ require("telescope").setup({
 		set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 	},
 })
+
+require("telescope").load_extension("ui-select")

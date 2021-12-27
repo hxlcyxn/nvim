@@ -13,6 +13,7 @@ return require("packer").startup({
 		use({ "wbthomason/packer.nvim" })
 
 		use({ "lewis6991/impatient.nvim" })
+		use({ "nathom/filetype.nvim" })
 		-- }}}
 		-- lsp etc {{{
 		use({ "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] })
@@ -29,6 +30,7 @@ return require("packer").startup({
 			"hrsh7th/nvim-cmp",
 			requires = {
 				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-cmdline",
 				"hrsh7th/cmp-emoji",
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-nvim-lua",
@@ -52,6 +54,12 @@ return require("packer").startup({
 			ft = "rust",
 			config = [[require("plugins.rusttools")]],
 		})
+		use({
+			"Saecki/crates.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			event = "BufRead Cargo.toml",
+			config = [[require("crates").setup()]],
+		})
 
 		use({
 			"mhartington/formatter.nvim",
@@ -74,6 +82,7 @@ return require("packer").startup({
 		use({ "pprovost/vim-ps1", ft = { "Powershell", "ps1" } })
 		use({ "neovimhaskell/haskell-vim", ft = "haskell" })
 		use({ "elkowar/yuck.vim", ft = "yuck" })
+		use({ "b0o/schemastore.nvim" })
 		-- }}}
 
 		-- quality of life {{{
@@ -84,6 +93,7 @@ return require("packer").startup({
 				"nvim-lua/popup.nvim",
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
+				"nvim-telescope/telescope-ui-select.nvim",
 			},
 			config = [[require("plugins.telescope")]],
 		})
@@ -115,6 +125,7 @@ return require("packer").startup({
 			run = "cargo build --release",
 			ft = { "fennel", "lisp", "yuck" },
 		})
+
 		use({ "windwp/nvim-autopairs", config = [[require("plugins.autopairs")]] })
 		use({ "editorconfig/editorconfig-vim" })
 		use({ "godlygeek/tabular", cmd = { "Tab", "Tabularize" } })
@@ -130,6 +141,7 @@ return require("packer").startup({
 			"timakro/vim-yadi",
 			config = [[vim.api.nvim_exec("autocmd BufRead * DetectIndent", true)]],
 		})
+		use({ "ggandor/lightspeed.nvim" })
 		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
 		use({ "sindrets/diffview.nvim", config = [[require("diffview").setup {}]] })
 		use({

@@ -3,6 +3,11 @@ vim.api.nvim_exec("syntax enable", true)
 
 vim.g.mapleader = _G.Settings.mapleader
 
+vim.opt.clipboard = "unnamedplus"
+
+vim.opt.title = true
+vim.opt.titlestring = "%t - nvim"
+
 vim.opt.scrolloff = 3
 vim.opt.sidescrolloff = 5
 

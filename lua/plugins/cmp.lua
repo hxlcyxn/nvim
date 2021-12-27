@@ -3,22 +3,11 @@ local compare = require("cmp.config.compare")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
-local function t(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local function check_back_space()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-end
-
 local function tab_complete(fallback)
 	if vim.fn.pumvisible() == 1 then
 		cmp.select_next_item()
 	elseif luasnip.expand_or_jumpable() then
-		vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
-	elseif check_back_space() then
-		vim.fn.feedkeys(t("<TAB>"), "n")
+		luasnip.expand_or_jump()
 	else
 		fallback()
 	end
@@ -28,7 +17,7 @@ local function shift_tab_complete(fallback)
 	if vim.fn.pumvisible() == 1 then
 		cmp.select_prev_item()
 	elseif luasnip.jumpable(-1) then
-		vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+		luasnip.jump(-1)
 	else
 		fallback()
 	end
@@ -67,6 +56,7 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "emoji" },
 		{ name = "latex_symbols" },
+		{ name = "crates" },
 	}),
 	snippet = {
 		expand = function(args)
@@ -79,6 +69,7 @@ cmp.setup({
 			with_text = false,
 			menu = {
 				buffer = "[BUF]",
+				cmdline = "[CMD]",
 				path = "[PATH]",
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[VIM]",
@@ -89,4 +80,10 @@ cmp.setup({
 		}),
 	},
 	experimental = { ghost_text = true },
+})
+
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer" },
+	},
 })

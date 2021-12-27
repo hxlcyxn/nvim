@@ -51,6 +51,7 @@ require("formatter").setup({
 		haskell = { stylish_haskell },
 		javascript = { prettier },
 		json = { prettier },
+		jsonc = { prettier },
 		lua = { stylua },
 		markdown = { prettier },
 		rust = { rustfmt },

@@ -1,7 +1,26 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter/
 -- https://github.com/p00f/nvim-ts-rainbow
 require("nvim-treesitter.configs").setup({
-	ensure_installed = "maintained",
+	ensure_installed = {
+		"bash",
+		"c",
+		"comment",
+		"cpp",
+		"fennel",
+		"javascript",
+		"jsdoc",
+		"json5",
+		"jsonc",
+		"lua",
+		"nix",
+		"rust",
+		"scss",
+		"toml",
+		"tsx",
+		"typescript",
+		"vim",
+		"yaml",
+	},
 	highlight = { enable = true, use_languagetree = true },
 	indent = { enable = true },
 })

@@ -2,6 +2,7 @@
 -- https://github.com/glepnir/lspsaga.nvim/
 -- https://github.com/simrat39/rust-tools.nvim/
 local lspconfig = require("lspconfig")
+local lsp_util = require("lspconfig.util")
 local h = require("helpful")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -11,7 +12,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = true,
 })
 
-local on_attach = function(client, bufnr)
+local function on_attach(client, bufnr)
 	require("lsp_signature").on_attach({
 		bind = true,
 		doc_lines = 0,
@@ -39,47 +40,64 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
+local function init_lsp(name, extra_config)
+	lspconfig[name].setup(
+		vim.tbl_extend(
+			"force",
+			{ on_attach = on_attach, capabilities = capabilities, flags = { debounce_text_changes = 150 } },
+			extra_config
+		)
+	)
+end
+
 local sumneko_root_path = "/home/" .. vim.fn.expand("$USER") .. "/src/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "/lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-table.insert(runtime_path, vim.fn.stdpath("config") .. "/lua/?.lua")
-table.insert(runtime_path, vim.fn.stdpath("config") .. "lua/?/init.lua")
-
-lspconfig.sumneko_lua.setup({
-	cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT", path = runtime_path },
-			diagnostics = { globals = { "vim", "packer_plugins" } },
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-				preloadFileSize = 200,
-			},
-			hint = { enable = true },
-			telemetry = { enabled = false },
-		},
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
+local sumneko_runtime_path = vim.split(package.path, ";")
+table.insert(sumneko_runtime_path, "/lua/?.lua")
+table.insert(sumneko_runtime_path, "lua/?/init.lua")
+table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "/lua/?.lua")
+table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "lua/?/init.lua")
 
 local servers = {
-	-- "ccls",
-	"clangd",
-	"hls",
-	"jsonls",
-	"rnix",
-	"rust_analyzer",
-	"tsserver",
-	"vimls",
+	sumneko_lua = {
+		cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+		settings = {
+			Lua = {
+				runtime = { version = "LuaJIT", path = sumneko_runtime_path },
+				diagnostics = { globals = { "vim", "packer_plugins" } },
+				workspace = {
+					library = vim.api.nvim_get_runtime_file("", true),
+					preloadFileSize = 200,
+				},
+				hint = { enable = true },
+				telemetry = { enabled = false },
+			},
+		},
+	},
+	jsonls = { settings = { json = { schemas = require("schemastore").json.schemas() } } },
+	texlab = {
+		root_dir = function(fname)
+			return lsp_util.root_pattern(".latexmkrc")(fname)
+				or lsp_util.root_pattern("Tectonic.toml")(fname)
+				or lsp_util.find_git_ancestor(fname)
+		end,
+		settings = {
+			texlab = {
+				build = {
+					executable = "tectonic",
+					args = { "-X", "compile", "%f" },
+				},
+			},
+		},
+	},
+	clangd = {},
+	hls = {},
+	rnix = {},
+	rust_analyzer = {},
+	tsserver = {},
+	vimls = {},
 }
 
-for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		flags = { debounce_text_changes = 150 },
-	})
+for server, config in pairs(servers) do
+	init_lsp(server, config)
 end
