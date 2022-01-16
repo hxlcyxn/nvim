@@ -50,17 +50,14 @@ local function init_lsp(name, extra_config)
 	)
 end
 
-local sumneko_root_path = "/home/" .. vim.fn.expand("$USER") .. "/src/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 local sumneko_runtime_path = vim.split(package.path, ";")
 table.insert(sumneko_runtime_path, "/lua/?.lua")
 table.insert(sumneko_runtime_path, "lua/?/init.lua")
-table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "/lua/?.lua")
-table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "lua/?/init.lua")
+-- table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "/lua/?.lua")
+-- table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "lua/?/init.lua")
 
 local servers = {
 	sumneko_lua = {
-		cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
 		settings = {
 			Lua = {
 				runtime = { version = "LuaJIT", path = sumneko_runtime_path },
