@@ -19,4 +19,5 @@ end
 require("options")
 require("packages")
 
-vim.cmd("au VimLeave * set guicursor=a:hor20-blinkon0")
+-- vim.cmd("au VimLeave * set guicursor=a:hor20-blinkon0")
+vim.cmd("au VimLeave * set guicursor=a:ver25-blinkon250")
