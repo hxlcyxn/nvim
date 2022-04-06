@@ -24,8 +24,8 @@ wk.register({
 		h = { vim.lsp.buf.hover, "show documentation" },
 		r = { cmd("Trouble lsp_references"), "show references" },
 		s = { vim.lsp.buf.signature_help, "signature help" },
-		e = { cmd("Trouble lsp_document_diagnostics"), "list diagnostics" },
-		E = { cmd("Trouble lsp_workspace_diagnostics"), "show diagnostics" },
+		e = { cmd("Trouble document_diagnostics"), "list diagnostics" },
+		E = { cmd("Trouble workspace_diagnostics"), "show diagnostics" },
 		g = { vim.lsp.buf.definition, "go to definition" },
 		i = { vim.lsp.buf.implementation, "show implementation" },
 		F = { vim.lsp.buf.formatting, "format file with lsp formatter" },
@@ -44,8 +44,12 @@ wk.register({
 		h = { cmd("Telescope oldfiles"), "file hsitory" },
 		n = { cmd("enew"), "new file" },
 	},
-	g = { cmd("Neogit"), "git" },
-	p = { name = "packer", s = { require("packer").sync, "sync plugins" }, S = { require("packer").status, "packer status" } },
+	g = { name = "git", b = { cmd("GitBlameToggle"), "toggle blame" }, g = { cmd("Neogit"), "neogit" } },
+	p = {
+		name = "packer",
+		s = { require("packer").sync, "sync plugins" },
+		S = { require("packer").status, "packer status" },
+	},
 }, {
 	prefix = "<leader>",
 })

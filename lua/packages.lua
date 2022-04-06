@@ -2,7 +2,14 @@
 -- {{{
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	packer_bootstrap = vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+	packer_bootstrap = vim.fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
 end -- }}}
 
 vim.api.nvim_exec([[packadd packer.nvim]], true) -- {{{
@@ -13,6 +20,8 @@ return require("packer").startup({
 
 		use({ "lewis6991/impatient.nvim" })
 		use({ "nathom/filetype.nvim" })
+
+		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
 		-- }}}
 		-- lsp etc {{{
 		use({ "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] })
@@ -48,6 +57,28 @@ return require("packer").startup({
 			config = [[require("plugins.dap")]],
 		})
 
+		use({ "https://github.com/github/copilot.vim" })
+
+		use({
+			"mhartington/formatter.nvim",
+			cmd = { "Format", "FormatWrite" },
+			config = [[require("plugins.formatter")]],
+		})
+		use({ "mfussenegger/nvim-lint", config = [[require("plugins.lint")]] })
+
+		use({ "Olical/conjure" , config = [[vim.g["conjure#extract#tree_sitter#enabled"] = true]]})
+		-- }}}
+
+		-- language plugins {{{
+		use({ "LnL7/vim-nix", ft = "nix" })
+		use({
+			"iamcco/markdown-preview.nvim",
+			run = ":call mkdp#util#install()",
+			ft = "markdown",
+		})
+		use({ "plasticboy/vim-markdown", ft = "markdown" })
+
+		use({ "rust-lang/rust.vim", ft = "rust" })
 		use({
 			"simrat39/rust-tools.nvim",
 			ft = "rust",
@@ -59,33 +90,23 @@ return require("packer").startup({
 			event = "BufRead Cargo.toml",
 			config = [[require("crates").setup()]],
 		})
+		use({ "jaawerth/fennel.vim", ft = "fennel" })
 
-		use({
-			"mhartington/formatter.nvim",
-			cmd = { "Format", "FormatWrite" },
-			config = [[require("plugins.formatter")]],
-		})
-		use({ "mfussenegger/nvim-lint", config = [[require("plugins.lint")]] })
-		-- }}}
-
-		-- language plugins {{{
-		use({ "LnL7/vim-nix", ft = "nix" })
-		use({
-			"iamcco/markdown-preview.nvim",
-			run = ":call mkdp#util#install()",
-			ft = "markdown",
-		})
-		use({ "plasticboy/vim-markdown", ft = "markdown" })
-		use({ "rust-lang/rust.vim", ft = "rust" })
-		use({ "olical/fennel.vim", ft = "fennel" })
 		use({ "pprovost/vim-ps1", ft = { "Powershell", "ps1" } })
+
 		use({ "neovimhaskell/haskell-vim", ft = "haskell" })
+
 		use({ "elkowar/yuck.vim", ft = "yuck" })
+
 		use({ "b0o/schemastore.nvim" })
 		-- }}}
 
 		-- quality of life {{{
-		use({ "https://github.com/jbyuki/venn.nvim" })
+		use({
+			"ahmedkhalf/project.nvim",
+			config = [[require("plugins.project")]],
+		})
+		use({ "jbyuki/venn.nvim" })
 		use({
 			"nvim-telescope/telescope.nvim",
 			requires = {
@@ -118,6 +139,10 @@ return require("packer").startup({
 			"romgrk/nvim-treesitter-context",
 			config = [[require("plugins.treesitter").context()]],
 		})
+		use({
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			config = [[require("plugins.treesitter").commentstring()]],
+		})
 
 		use({
 			"eraserhd/parinfer-rust",
@@ -135,13 +160,7 @@ return require("packer").startup({
 			requires = { "nvim-lua/plenary.nvim" },
 			config = [[require("gitsigns").setup { numhl = true }]],
 		})
-		use({ "tpope/vim-repeat" })
-		use({
-			"timakro/vim-yadi",
-			config = [[vim.api.nvim_exec("autocmd BufRead * DetectIndent", true)]],
-		})
-		use({ "ggandor/lightspeed.nvim" })
-		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
+		use({ "f-person/git-blame.nvim", setup = [[vim.g.gitblame_enabled = 0]] })
 		use({ "sindrets/diffview.nvim", config = [[require("diffview").setup {}]] })
 		use({
 			"TimUntersberger/neogit",
@@ -149,6 +168,13 @@ return require("packer").startup({
 			cmd = "Neogit",
 			config = [[require("neogit").setup { integrations = { diffview = true } }]],
 		})
+		use({ "tpope/vim-repeat" })
+		use({
+			"timakro/vim-yadi",
+			config = [[vim.api.nvim_exec("autocmd BufRead * DetectIndent", true)]],
+		})
+		use({ "ggandor/lightspeed.nvim" })
+		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = { "kyazdani42/nvim-web-devicons" },
@@ -168,7 +194,12 @@ return require("packer").startup({
 		-- }}}
 
 		-- stylish {{{
-		use({ "glepnir/dashboard-nvim", config = [[require("plugins.dashboard")]] })
+		use({
+			"goolord/alpha-nvim",
+			requires = { "kyazdani42/nvim-web-devicons" },
+			config = [[require("plugins.alpha")]],
+		})
+		-- use({ "glepnir/dashboard-nvim", config = [[require("plugins.dashboard")]] })
 		use({
 			"famiu/feline.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },

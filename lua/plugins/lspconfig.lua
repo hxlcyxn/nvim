@@ -3,7 +3,6 @@
 -- https://github.com/simrat39/rust-tools.nvim/
 local lspconfig = require("lspconfig")
 local lsp_util = require("lspconfig.util")
-local h = require("helpful")
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
@@ -19,7 +18,7 @@ local function on_attach(client, bufnr)
 		hint_prefix = "ƒ ",
 	}, bufnr)
 
-	h.buf_setoption({ omnifunc = "v:lua.vim.lsp.omnifunc" })
+	vim.b.omnifunc = "v:lua.vim.lsp.omnifunc"
 	-- Keybindings for LSPs
 	if client.resolved_capabilities.document_highlight then
 		vim.api.nvim_exec(
@@ -87,7 +86,7 @@ local servers = {
 			},
 		},
 	},
-	clangd = {},
+	ltex = {},
 	hls = {},
 	rnix = {},
 	rust_analyzer = {},

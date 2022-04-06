@@ -2,6 +2,7 @@ vim.api.nvim_exec("filetype plugin indent on", true)
 vim.api.nvim_exec("syntax enable", true)
 
 vim.g.mapleader = _G.Settings.mapleader
+vim.g.maplocalleader = _G.Settings.maplocalleader
 
 vim.opt.clipboard = "unnamedplus"
 

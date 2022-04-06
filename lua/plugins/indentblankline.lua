@@ -6,6 +6,7 @@ require("indent_blankline").setup({
 		"help",
 		"packer",
 		"dashboard",
+		"alpha",
 		"NvimTree",
 		"man",
 		"lspinfo",

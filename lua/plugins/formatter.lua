@@ -55,5 +55,6 @@ require("formatter").setup({
 		lua = { stylua },
 		markdown = { prettier },
 		rust = { rustfmt },
+		typescript = { prettier },
 	},
 })

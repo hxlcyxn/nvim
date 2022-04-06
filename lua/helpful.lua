@@ -1,32 +1,5 @@
 local M = {}
 
---- Sets specified vim options.
----@deprecated
----@param opts table: Options to be set. Keys: options
-function M.setoption(opts)
-	for option, value in pairs(opts) do
-		vim.o[option] = value
-	end
-end
-
---- Sets specified vim options buffer-local.
----@deprecated
----@param opts table: Options to be set. Keys: options
-function M.buf_setoption(opts)
-	for option, value in pairs(opts) do
-		vim.bo[option] = value
-	end
-end
-
---- Sets specified variables as global vim variables
----@deprecated
----@param globs table: Globals to be set. Keys: globals
-function M.setglobal(globs)
-	for global, value in pairs(globs) do
-		vim.g[global] = value
-	end
-end
-
 --- Sets a key mapping.
 --- Light wrapper around vim.api.nvim_set_keymap(). Automatically sets silent to true.
 ---@param mode string: character defining the vim mode. empty for all
@@ -70,6 +43,22 @@ function M.buf_noremap(bufnr, mode, lhs, rhs, opts)
 	end
 
 	vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, options)
+end
+
+---Sets highlight groups
+---@param group string the group name
+---@param colors table table containing any of `FG`, `BG` or `GUI`
+function M.highlight(group, colors)
+	local opts = { fg = "NONE", bg = "NONE", gui = "NONE" }
+	opts = vim.tbl_extend("force", opts, colors)
+	vim.api.nvim_set_hl(0, group, {})
+end
+
+function M.highlight_link(to, from)
+	if not from then
+		from = "NONE"
+	end
+	vim.api.nvim_set_hl(0, to, { link = from })
 end
 
 return M

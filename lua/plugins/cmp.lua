@@ -24,6 +24,7 @@ local function shift_tab_complete(fallback)
 end
 
 cmp.setup({
+	completion = { autocomplete = false },
 	mapping = {
 		["<TAB>"] = cmp.mapping(tab_complete, { "i", "s" }),
 		["<S-TAB>"] = cmp.mapping(shift_tab_complete, { "i", "s" }),
@@ -39,18 +40,18 @@ cmp.setup({
 	documentation = { border = "solid" },
 	sorting = {
 		comparators = {
-			compare.score,
-			compare.kind,
 			compare.offset,
 			compare.exact,
-			compare.length,
+			compare.score,
+			compare.kind,
 			compare.sort_text,
+			compare.length,
 			compare.order,
 		},
 	},
 	sources = cmp.config.sources({
-		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "nvim_lua" },
 		{ name = "path" },
 		{ name = "buffer" },
@@ -66,7 +67,7 @@ cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
 			preset = "default",
-			with_text = false,
+			mode = "symbol",
 			menu = {
 				buffer = "[BUF]",
 				cmdline = "[CMD]",
@@ -82,8 +83,22 @@ cmp.setup({
 	experimental = { ghost_text = true },
 })
 
+cmp.setup.cmdline(":", {
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+})
+
 cmp.setup.cmdline("/", {
 	sources = {
 		{ name = "buffer" },
+	},
+	view = {
+		entries = {
+			name = "wildmenu",
+			separator = "|",
+		},
 	},
 })
