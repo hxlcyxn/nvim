@@ -37,12 +37,13 @@ cmp.setup({
 			select = true,
 		}),
 	},
-	documentation = { border = "solid" },
+	window = { documentation = { border = "solid" } },
 	sorting = {
 		comparators = {
 			compare.offset,
 			compare.exact,
 			compare.score,
+			require("cmp-under-comparator").under,
 			compare.kind,
 			compare.sort_text,
 			compare.length,

@@ -44,6 +44,7 @@ return require("packer").startup({
 				"hrsh7th/cmp-path",
 				"kdheepak/cmp-latex-symbols",
 				"saadparwaiz1/cmp_luasnip",
+				"lukas-reineke/cmp-under-comparator",
 			},
 			config = [[require("plugins.cmp")]],
 		})
@@ -65,11 +66,14 @@ return require("packer").startup({
 		})
 		use({ "mfussenegger/nvim-lint", config = [[require("plugins.lint")]] })
 
-		use({ "Olical/conjure" , config = [[vim.g["conjure#extract#tree_sitter#enabled"] = true]]})
+		use({ "Olical/conjure", config = [[vim.g["conjure#extract#tree_sitter#enabled"] = true]] })
 		-- }}}
 
 		-- language plugins {{{
+		use({ "spywhere/detect-language.nvim", config = [[require("detect-language").setup()]] })
+
 		use({ "LnL7/vim-nix", ft = "nix" })
+
 		use({
 			"iamcco/markdown-preview.nvim",
 			run = ":call mkdp#util#install()",
@@ -89,6 +93,7 @@ return require("packer").startup({
 			event = "BufRead Cargo.toml",
 			config = [[require("crates").setup()]],
 		})
+
 		use({ "jaawerth/fennel.vim", ft = "fennel" })
 
 		use({ "pprovost/vim-ps1", ft = { "Powershell", "ps1" } })
@@ -217,6 +222,8 @@ return require("packer").startup({
 			"norcalli/nvim-colorizer.lua",
 			config = [[require("colorizer").setup { "*", "!packer" }]],
 		})
+
+		use({ "rktjmp/lush.nvim" })
 
 		use({
 			"Shatur/neovim-ayu",
