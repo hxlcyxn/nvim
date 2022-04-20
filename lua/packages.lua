@@ -19,7 +19,6 @@ return require("packer").startup({
 		use({ "wbthomason/packer.nvim" })
 
 		use({ "lewis6991/impatient.nvim" })
-		use({ "nathom/filetype.nvim" })
 
 		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
 		-- }}}

@@ -1,6 +1,9 @@
 vim.api.nvim_exec("filetype plugin indent on", true)
 vim.api.nvim_exec("syntax enable", true)
 
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+
 vim.g.mapleader = _G.Settings.mapleader
 vim.g.maplocalleader = _G.Settings.maplocalleader
 
