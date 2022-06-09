@@ -2,7 +2,7 @@
 -- https://github.com/p00f/nvim-ts-rainbow
 require("nvim-treesitter.configs").setup({
 	ensure_installed = "all",
-	highlight = { enable = true, use_languagetree = true },
+	highlight = { enable = true, use_languagetree = true, additional_vim_regex_highlighting = true },
 	indent = { enable = true },
 })
 
@@ -27,6 +27,13 @@ end
 
 M.playground = function()
 	require("nvim-treesitter.configs").setup({ playground = { enable = true } })
+	require("nvim-treesitter.configs").setup({
+		query_linter = {
+			enable = true,
+			use_virtual_text = true,
+			lint_events = { "BufWrite", "CursorHold" },
+		},
+	})
 end
 
 M.rainbow = function()
@@ -70,7 +77,7 @@ M.rainbow = function()
 end
 
 M.context = function()
-	require("treesitter-context").setup({})
+	require("treesitter-context").setup()
 end
 
 M.commentstring = function()

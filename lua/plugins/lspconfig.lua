@@ -20,19 +20,24 @@ local function on_attach(client, bufnr)
 
 	vim.b.omnifunc = "v:lua.vim.lsp.omnifunc"
 	-- Keybindings for LSPs
-	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-    hi LspReferenceRead gui=underline
+	if client.supports_method("document_highlight") then
+		vim.cmd([[hi LspReferenceRead gui=underline]])
 
-    augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]],
-			false
-		)
+		local augroup_name = "lsp_document_highlight"
+		vim.api.nvim_create_augroup(augroup_name, { clear = false })
+		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup_name })
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+			desc = "Highlight references to name under cursor.",
+			group = augroup_name,
+			buffer = bufnr,
+			callback = vim.lsp.buf.document_highlight,
+		})
+		vim.api.nvim_create_autocmd("CursorMoved", {
+			desc = "Clear highlight to name under cursor.",
+			group = augroup_name,
+			buffer = bufnr,
+			callback = vim.lsp.buf.clear_references,
+		})
 	end
 end
 
@@ -86,8 +91,9 @@ local servers = {
 			},
 		},
 	},
-	ltex = {},
+	eslint = {},
 	hls = {},
+	ltex = {},
 	rnix = {},
 	rust_analyzer = {},
 	tsserver = {},

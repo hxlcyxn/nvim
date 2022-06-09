@@ -5,9 +5,11 @@ vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
 
 vim.g.mapleader = _G.Settings.mapleader
-vim.g.maplocalleader = _G.Settings.maplocalleader
+vim.g.maplocalleader = _G.Settings.localleader
 
 vim.opt.clipboard = "unnamedplus"
+
+vim.opt.shortmess:append("I")
 
 vim.opt.title = true
 vim.opt.titlestring = "%t - nvim"
@@ -19,7 +21,7 @@ vim.opt.mouse = "a"
 vim.opt.termguicolors = true
 vim.opt.background = _G.Settings.background
 
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 
 vim.opt.signcolumn = "yes"
 vim.opt.number = true
@@ -64,3 +66,16 @@ vim.opt.shortmess:append("c")
 vim.opt.guifont = "FiraCode NF:h14"
 
 vim.cmd("let &fcs='eob: '")
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+	desc = [[Make files with shebang lines user executable.]],
+	callback = function(table)
+		local first_line = vim.api.nvim_buf_get_lines(table.buf, 0, 1, false)[1] or ""
+		if string.find(first_line, "^#!%s*[^%s]") then
+			local perms = vim.fn.getfperm(table.file)
+			-- replace the third character with an x
+			perms = ("%s%s%s"):format(perms:sub(1, 2), "x", perms:sub(4))
+			vim.fn.setfperm(table.file, perms)
+		end
+	end,
+})

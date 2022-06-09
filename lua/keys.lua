@@ -5,12 +5,30 @@ local function cmd(c)
 	return "<cmd>" .. c .. "<cr>"
 end
 
+local function show_documentation()
+	local contains = vim.tbl_contains
+	local ft = vim.bo.filetype
+	local cword = vim.fn.expand("<cword>")
+	local filename = vim.fn.expand("%:t")
+	if contains({ "vim", "help" }, ft) then
+		vim.cmd("h " .. cword)
+	elseif contains({ "man" }, ft) then
+		vim.cmd("Man " .. cword)
+	elseif filename == "Cargo.toml" then
+		require("crates").show_popup()
+	else
+		vim.lsp.buf.hover()
+	end
+end
+
 wk.setup({
 	plugins = { spelling = { enabled = true } },
 	window = { border = "single" },
 })
 
 wk.register({
+	s = { cmd("update"), "save file" },
+	q = { cmd("quit"), "quit neovim" },
 	b = {
 		name = "buffers",
 		h = { cmd("bprevious"), "previous buffer" },
@@ -21,7 +39,7 @@ wk.register({
 	m = {
 		name = "code/lsp actions",
 		c = { vim.lsp.buf.code_action, "code actions" },
-		h = { vim.lsp.buf.hover, "show documentation" },
+		h = { show_documentation, "show documentation" },
 		r = { cmd("Trouble lsp_references"), "show references" },
 		s = { vim.lsp.buf.signature_help, "signature help" },
 		e = { cmd("Trouble document_diagnostics"), "list diagnostics" },
@@ -32,9 +50,24 @@ wk.register({
 	},
 	d = {
 		name = "debugging",
-		b = { require("dap").toggle_breakpoint, "toggle breakpoint" },
-		u = { require("dapui").toggle, "toggle dapui" },
-		c = { require("dap").continue, "continue" },
+		b = {
+			function()
+				require("dap").toggle_breakpoint()
+			end,
+			"toggle breakpoint",
+		},
+		u = {
+			function()
+				require("dapui").toggle()
+			end,
+			"toggle dapui",
+		},
+		c = {
+			function()
+				require("dap").continue()
+			end,
+			"continue",
+		},
 	},
 	f = {
 		name = "files",

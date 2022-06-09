@@ -8,14 +8,12 @@ _G.Settings = {
 	ayu_mirage = false, -- true|false
 
 	mapleader = " ", -- affects basically all commands, most important button
-	maplocalleader = ",", -- other commands
+	localleader = "-", -- other commands
 	indent_style = "tabs", -- tabs|spaces
 	indent = 4, -- your indentation size
 }
 
-if package.loaded["impatient"] then
-	require("impatient").enable_profile()
-end
+require("impatient")--.enable_profile()
 
 require("options")
 require("packages")

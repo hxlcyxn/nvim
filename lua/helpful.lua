@@ -20,7 +20,7 @@ end
 ---@param  mode string: character defining the vim mode. empty for all
 ---@param  lhs string: the key compbination
 ---@param  rhs string: the action to execute
----@param  opts table: options passed to the function
+---@param  opts? table: options passed to the function
 function M.noremap(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }
 	if opts then

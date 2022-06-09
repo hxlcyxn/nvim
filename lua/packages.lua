@@ -12,6 +12,16 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 	})
 end -- }}}
 
+local config = {
+	autoremove = true,
+	profile = { enable = true },
+	display = {
+		open_fn = function()
+			return require("packer.util").float({ border = "single" })
+		end,
+	},
+}
+
 vim.api.nvim_exec([[packadd packer.nvim]], true) -- {{{
 return require("packer").startup({
 	function(use)
@@ -19,8 +29,7 @@ return require("packer").startup({
 		use({ "wbthomason/packer.nvim" })
 
 		use({ "lewis6991/impatient.nvim" })
-
-		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
+		use({ "antoinemadec/FixCursorHold.nvim" })
 		-- }}}
 		-- lsp etc {{{
 		use({ "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] })
@@ -30,43 +39,57 @@ return require("packer").startup({
 		-- use({ "simrat39/symbols-outline.nvim" })
 		use({
 			"kosayoda/nvim-lightbulb",
-			config = [[vim.cmd "autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()"]],
+			config = [[require("plugins.lightbulb")]],
 		})
 
 		use({
 			"hrsh7th/nvim-cmp",
-			requires = {
-				"hrsh7th/cmp-buffer",
-				"hrsh7th/cmp-cmdline",
-				"hrsh7th/cmp-emoji",
-				"hrsh7th/cmp-nvim-lsp",
-				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-path",
-				"kdheepak/cmp-latex-symbols",
-				"saadparwaiz1/cmp_luasnip",
-				"lukas-reineke/cmp-under-comparator",
-			},
 			config = [[require("plugins.cmp")]],
 		})
+		use({ "hrsh7th/cmp-buffer" })
+		use({ "hrsh7th/cmp-cmdline" })
+		use({ "hrsh7th/cmp-emoji" })
+		use({ "hrsh7th/cmp-nvim-lsp" })
+		use({ "hrsh7th/cmp-nvim-lua" })
+		use({ "hrsh7th/cmp-path" })
+		use({ "kdheepak/cmp-latex-symbols" })
+		use({ "lukas-reineke/cmp-under-comparator" })
+		use({ "saadparwaiz1/cmp_luasnip" })
 		use({ "L3MON4D3/LuaSnip", config = [[require("plugins.luasnip")]] })
 		use({ "rafamadriz/friendly-snippets" })
 
 		use({
+			"zbirenbaum/copilot.lua",
+			event = "VimEnter",
+			config = [[vim.defer_fn(function() require("copilot").setup() end, 100)]],
+		})
+		use({ "zbirenbaum/copilot-cmp", after = { "nvim-cmp", "copilot.lua" } })
+
+		use({
 			"mfussenegger/nvim-dap",
-			requires = { "rcarriga/nvim-dap-ui" },
+			keys = "<leader>d",
 			config = [[require("plugins.dap")]],
 		})
-
-		use({ "https://github.com/github/copilot.vim" })
+		use({
+			"rcarriga/nvim-dap-ui",
+			after = "nvim-dap",
+			keys = "<leader>d",
+			config = [[require("plugins.dap").dapui()]],
+		})
 
 		use({
 			"mhartington/formatter.nvim",
 			cmd = { "Format", "FormatWrite" },
 			config = [[require("plugins.formatter")]],
 		})
+
 		use({ "mfussenegger/nvim-lint", config = [[require("plugins.lint")]] })
 
-		use({ "Olical/conjure", config = [[vim.g["conjure#extract#tree_sitter#enabled"] = true]] })
+		use({
+			"Olical/conjure",
+			ft = { "fennel", "clojure", "lisp" },
+			config = [[vim.g["conjure#extract#tree_sitter#enabled"] = true]],
+		})
 		-- }}}
 
 		-- language plugins {{{
@@ -74,19 +97,13 @@ return require("packer").startup({
 
 		use({ "LnL7/vim-nix", ft = "nix" })
 
-		use({
-			"iamcco/markdown-preview.nvim",
-			run = ":call mkdp#util#install()",
-			ft = "markdown",
-		})
-		use({ "plasticboy/vim-markdown", ft = "markdown" })
+		-- use({ "preservim/vim-markdown", ft = "markdown" })
+		use({ "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()", ft = "markdown" })
+		use({ "lukas-reineke/headlines.nvim", ft = "markdown", config = [[require("headlines").setup()]] })
+		use({ "ellisonleao/glow.nvim", ft = "markdown" })
 
 		use({ "rust-lang/rust.vim", ft = "rust" })
-		use({
-			"simrat39/rust-tools.nvim",
-			ft = "rust",
-			config = [[require("plugins.rusttools")]],
-		})
+		use({ "simrat39/rust-tools.nvim", ft = "rust", config = [[require("plugins.rusttools")]] })
 		use({
 			"Saecki/crates.nvim",
 			requires = { "nvim-lua/plenary.nvim" },
@@ -105,12 +122,13 @@ return require("packer").startup({
 		use({ "b0o/schemastore.nvim" })
 		-- }}}
 
-		-- quality of life {{{
-		use({
-			"ahmedkhalf/project.nvim",
-			config = [[require("plugins.project")]],
-		})
+		-- *quality of life {{{
+		use({ "ahmedkhalf/project.nvim", config = [[require("plugins.project")]] })
+
+		use({ "jghauser/mkdir.nvim" })
+
 		use({ "jbyuki/venn.nvim" })
+
 		use({
 			"nvim-telescope/telescope.nvim",
 			requires = {
@@ -121,28 +139,16 @@ return require("packer").startup({
 			},
 			config = [[require("plugins.telescope")]],
 		})
-		use({
-			"nvim-treesitter/nvim-treesitter",
-			run = ":TSUpdate",
-			config = [[require("plugins.treesitter")]],
-		})
+
+		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", config = [[require("plugins.treesitter")]] })
 		use({
 			"nvim-treesitter/playground",
 			cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
 			config = [[require("plugins.treesitter").playground()]],
 		})
-		use({
-			"windwp/nvim-ts-autotag",
-			config = [[require("plugins.treesitter").autotag()]],
-		})
-		use({
-			"p00f/nvim-ts-rainbow",
-			config = [[require("plugins.treesitter").rainbow()]],
-		})
-		use({
-			"romgrk/nvim-treesitter-context",
-			config = [[require("plugins.treesitter").context()]],
-		})
+		use({ "windwp/nvim-ts-autotag", config = [[require("plugins.treesitter").autotag()]] })
+		use({ "p00f/nvim-ts-rainbow", config = [[require("plugins.treesitter").rainbow()]] })
+		use({ "lewis6991/nvim-treesitter-context", config = [[require("plugins.treesitter").context()]] })
 		use({
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			config = [[require("plugins.treesitter").commentstring()]],
@@ -154,36 +160,40 @@ return require("packer").startup({
 			ft = { "fennel", "lisp", "yuck" },
 		})
 
-		use({ "windwp/nvim-autopairs", config = [[require("plugins.autopairs")]] })
-		use({ "editorconfig/editorconfig-vim" })
+		use({ "windwp/nvim-autopairs", after = "nvim-cmp", config = [[require("plugins.autopairs")]] })
+		use({ "gpanders/editorconfig.nvim" })
 		use({ "godlygeek/tabular", cmd = { "Tab", "Tabularize" } })
 		use({ "folke/which-key.nvim", config = [[require("keys")]] })
 		use({ "tpope/vim-surround" })
+
 		use({
 			"lewis6991/gitsigns.nvim",
 			requires = { "nvim-lua/plenary.nvim" },
 			config = [[require("gitsigns").setup { numhl = true }]],
 		})
 		use({ "f-person/git-blame.nvim", setup = [[vim.g.gitblame_enabled = 0]] })
-		use({ "sindrets/diffview.nvim", config = [[require("diffview").setup {}]] })
+		use({ "sindrets/diffview.nvim", config = [[require("diffview").setup()]] })
 		use({
 			"TimUntersberger/neogit",
 			requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
 			cmd = "Neogit",
 			config = [[require("neogit").setup { integrations = { diffview = true } }]],
 		})
+
 		use({ "tpope/vim-repeat" })
-		use({
-			"timakro/vim-yadi",
-			config = [[vim.api.nvim_exec("autocmd BufRead * DetectIndent", true)]],
-		})
+
+		use({ "timakro/vim-yadi", config = [[require("plugins.yadi")]] })
+
 		use({ "ggandor/lightspeed.nvim" })
+
 		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
+
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = [[require("plugins.nvimtree")]],
 		})
+
 		use({
 			"folke/zen-mode.nvim",
 			cmd = "ZenMode",
@@ -198,26 +208,29 @@ return require("packer").startup({
 		-- }}}
 
 		-- stylish {{{
+		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
+
+		use({ "j-hui/fidget.nvim", config = [[require("fidget").setup()]] })
+
 		use({
 			"goolord/alpha-nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = [[require("plugins.alpha")]],
 		})
-		-- use({ "glepnir/dashboard-nvim", config = [[require("plugins.dashboard")]] })
+
 		use({
 			"famiu/feline.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 			config = [[require("plugins.feline")]],
 		})
+
 		use({
 			"akinsho/nvim-bufferline.lua",
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = [[require("plugins.bufferline")]],
 		})
-		use({
-			"lukas-reineke/indent-blankline.nvim",
-			config = [[require("plugins.indentblankline")]],
-		})
+
+		use({ "lukas-reineke/indent-blankline.nvim", config = [[require("plugins.indentblankline")]] })
 		use({
 			"norcalli/nvim-colorizer.lua",
 			config = [[require("colorizer").setup { "*", "!packer" }]],
@@ -249,13 +262,6 @@ return require("packer").startup({
 			require("packer").sync()
 		end
 	end,
-	config = {
-		-- profile = { enable = true },
-		display = {
-			open_fn = function()
-				return require("packer.util").float({ border = "single" })
-			end,
-		},
-	},
+	config = config,
 })
 -- }}}
