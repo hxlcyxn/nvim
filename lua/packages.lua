@@ -2,7 +2,7 @@
 -- {{{
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	packer_bootstrap = vim.fn.system({
+	PACKER_BOOTSTRAP = vim.fn.system({
 		"git",
 		"clone",
 		"--depth",
@@ -58,12 +58,13 @@ return require("packer").startup({
 		use({ "L3MON4D3/LuaSnip", config = [[require("plugins.luasnip")]] })
 		use({ "rafamadriz/friendly-snippets" })
 
+		-- use({ "github/copilot.vim" })
 		use({
 			"zbirenbaum/copilot.lua",
 			event = "VimEnter",
-			config = [[vim.defer_fn(function() require("copilot").setup() end, 100)]],
+			config = [[require("plugins.copilot-lua")]],
 		})
-		use({ "zbirenbaum/copilot-cmp", after = { "nvim-cmp", "copilot.lua" } })
+		use({ "zbirenbaum/copilot-cmp", module = "copilot_cmp", after = { "nvim-cmp", "copilot.lua" } })
 
 		use({
 			"mfussenegger/nvim-dap",
@@ -184,7 +185,8 @@ return require("packer").startup({
 
 		use({ "timakro/vim-yadi", config = [[require("plugins.yadi")]] })
 
-		use({ "ggandor/lightspeed.nvim" })
+		-- use({ "ggandor/lightspeed.nvim" })
+		use({ "ggandor/leap.nvim", config = [[require("plugins.leap")]] })
 
 		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
 
@@ -258,7 +260,7 @@ return require("packer").startup({
 		end
 		-- }}}
 
-		if packer_bootstrap then
+		if PACKER_BOOTSTRAP then
 			require("packer").sync()
 		end
 	end,

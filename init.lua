@@ -1,7 +1,7 @@
-_G.Utils = {}
-_G.Commands = {}
+Utils = {}
+Commands = {}
 
-_G.Settings = {
+Settings = {
 	colorscheme = "ayu", -- "ayu"|"xresources"
 	background = "dark", -- "dark"|"light"
 
