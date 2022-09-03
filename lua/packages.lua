@@ -114,9 +114,9 @@ return require("packer").startup({
 
 		use({ "jaawerth/fennel.vim", ft = "fennel" })
 
-		use({ "pprovost/vim-ps1", ft = { "Powershell", "ps1" } })
-
 		use({ "neovimhaskell/haskell-vim", ft = "haskell" })
+
+		use({ "pprovost/vim-ps1", ft = { "Powershell", "ps1" } })
 
 		use({ "elkowar/yuck.vim", ft = "yuck" })
 
@@ -124,7 +124,8 @@ return require("packer").startup({
 		-- }}}
 
 		-- *quality of life {{{
-		use({ "ahmedkhalf/project.nvim", config = [[require("plugins.project")]] })
+		use({ "Shatur/neovim-session-manager", config = [[require("plugins.session_manager")]] })
+		-- use({ "ahmedkhalf/project.nvim", config = [[require("plugins.project")]] })
 
 		use({ "jghauser/mkdir.nvim" })
 
