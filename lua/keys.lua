@@ -81,6 +81,11 @@ wk.register({
 	},
 	g = { name = "git", b = { cmd("GitBlameToggle"), "toggle blame" }, g = { cmd("Neogit"), "neogit" } },
 	p = {
+		name = "projects",
+		l = { cmd("SessionManager load_session"), "load session" },
+		L = { cmd("SessionManager load_last_session"), "load last session" },
+	},
+	P = {
 		name = "packer",
 		s = { require("packer").sync, "sync plugins" },
 		S = { require("packer").status, "packer status" },
