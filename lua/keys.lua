@@ -38,15 +38,17 @@ wk.register({
 	},
 	m = {
 		name = "code/lsp actions",
+		a = { require("neogen").generate, "generate documentation" },
 		c = { vim.lsp.buf.code_action, "code actions" },
 		h = { show_documentation, "show documentation" },
 		r = { cmd("Trouble lsp_references"), "show references" },
+		R = { vim.lsp.buf.rename, "rename" },
 		s = { vim.lsp.buf.signature_help, "signature help" },
 		e = { cmd("Trouble document_diagnostics"), "list diagnostics" },
 		E = { cmd("Trouble workspace_diagnostics"), "show diagnostics" },
 		g = { vim.lsp.buf.definition, "go to definition" },
 		i = { vim.lsp.buf.implementation, "show implementation" },
-		F = { vim.lsp.buf.formatting, "format file with lsp formatter" },
+		F = { vim.lsp.buf.format, "format file with lsp formatter" },
 	},
 	d = {
 		name = "debugging",
@@ -72,10 +74,10 @@ wk.register({
 	f = {
 		name = "files",
 		a = { cmd("Telescope live_grep"), "grep files" },
-		b = { cmd("Telescope file_browser"), "file browser" },
-		f = { cmd("Telescope find_files"), "file finder" },
-		h = { cmd("Telescope oldfiles"), "file hsitory" },
-		n = { cmd("enew"), "new file" },
+		f = { cmd("Telescope find_files"), "open file finder" },
+		h = { cmd("Telescope oldfiles"), "open file hsitory" },
+		n = { cmd("enew"), "create new file" },
+		s = { cmd("Telescope projects"), "select & open projects" },
 	},
 	g = { name = "git", b = { cmd("GitBlameToggle"), "toggle blame" }, g = { cmd("Neogit"), "neogit" } },
 	p = {

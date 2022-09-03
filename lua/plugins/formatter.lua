@@ -2,9 +2,20 @@
 local function fnlfmt()
 	return { exe = "fnlfmt", args = { "-" }, stdin = true }
 end
+
 local function prettier()
+	local startpath = vim.fn.getcwd()
+	local root = require("lspconfig.util").find_node_modules_ancestor(startpath)
+		or require("lspconfig.util").find_package_json_ancestor(startpath)
+		or require("lspconfig.util").find_git_ancestor(startpath)
+
+	local exe = "prettier"
+	if root then
+		exe = root .. "/node_modules/.bin/" .. exe
+	end
+
 	return {
-		exe = "prettier",
+		exe = exe,
 		args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0) },
 		stdin = true,
 	}
@@ -14,18 +25,29 @@ local function stylish_haskell()
 	return { exe = "stylish-haskell", stdin = true }
 end
 
+local function mix_format()
+	return {
+		exe = "mix",
+		args = { "format", "-" },
+		stdin = true,
+	}
+end
+
 require("formatter").setup({
 	logging = false,
 	filetype = {
 		c = { require("formatter.filetypes.c").clangformat },
+		elixir = { mix_format },
 		fennel = { fnlfmt },
 		haskell = { stylish_haskell },
-		javascript = { require("formatter.filetypes.javascript").prettier },
-		json = { require("formatter.filetypes.json").prettier },
-		jsonc = { require("formatter.filetypes.json").prettier },
+		html = { prettier },
+		javascript = { prettier },
+		json = { prettier },
+		jsonc = { prettier },
 		lua = { require("formatter.filetypes.lua").stylua },
 		markdown = { prettier },
 		rust = { require("formatter.filetypes.rust").rustfmt },
+		toml = { require("formatter.filetypes.toml").taplo },
 		typescript = { require("formatter.filetypes.typescript").prettier },
 	},
 })

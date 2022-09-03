@@ -3,7 +3,7 @@ local npairs = require("nvim-autopairs")
 local Rule = require("nvim-autopairs.rule")
 
 npairs.setup({
-	disable_filetype = { "TelescopePrompt", "fennel", "lisp", "yuck" },
+	disable_filetype = { "TelescopePrompt", unpack(Settings.lisp_filetypes)},
 	check_ts = true,
 	fast_wrap = {},
 })
@@ -21,4 +21,4 @@ require("plugins.treesitter").autopairs()
 
 local cmp_ap = require("nvim-autopairs.completion.cmp")
 local cmp = require("cmp")
-cmp.event:on("confirm_done", cmp_ap.on_confirm_done({ map_char = { text = "" } }))
+cmp.event:on("confirm_done", cmp_ap.on_confirm_done())

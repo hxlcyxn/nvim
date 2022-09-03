@@ -1,9 +1,6 @@
 vim.api.nvim_exec("filetype plugin indent on", true)
 vim.api.nvim_exec("syntax enable", true)
 
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
-
 vim.g.mapleader = _G.Settings.mapleader
 vim.g.maplocalleader = _G.Settings.localleader
 
@@ -30,6 +27,8 @@ vim.opt.cursorline = true
 
 vim.opt.list = true
 vim.opt.listchars = "tab:→ ,trail:·,eol:↲" -- ↵↲⏎
+
+vim.opt.conceallevel = 2
 
 vim.opt.wrap = false
 vim.opt.linebreak = true
@@ -65,7 +64,7 @@ vim.opt.shortmess:append("c")
 
 vim.opt.guifont = "FiraCode NF:h14"
 
-vim.cmd("let &fcs='eob: '")
+vim.opt.fillchars = "eob: "
 
 vim.api.nvim_create_autocmd("BufWritePost", {
 	desc = [[Make files with shebang lines user executable.]],

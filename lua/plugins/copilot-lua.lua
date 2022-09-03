@@ -1,7 +1,5 @@
 local function setup()
-	require("copilot").setup({
-		cmp_method = "getPanelCompletions",
-	})
+	require("copilot").setup()
 end
 
 vim.defer_fn(setup, 100)

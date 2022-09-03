@@ -30,17 +30,23 @@ return require("packer").startup({
 
 		use({ "lewis6991/impatient.nvim" })
 		use({ "antoinemadec/FixCursorHold.nvim" })
+		use({ "monkoose/matchparen.nvim", config = [[require("matchparen").setup()]] })
 		-- }}}
 		-- lsp etc {{{
+		use({ "williamboman/mason.nvim", config = [[require("plugins.mason")]] })
+
 		use({ "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] })
 		use({ "onsails/lspkind-nvim" })
 		use({ "ray-x/lsp_signature.nvim" })
 		use({ "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+		use({ "stevearc/aerial.nvim", config = [[require("aerial").setup()]] })
+		use({ "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = [[require("lsp_lines").setup()]] })
 		-- use({ "simrat39/symbols-outline.nvim" })
 		use({
 			"kosayoda/nvim-lightbulb",
 			config = [[require("plugins.lightbulb")]],
 		})
+		-- use({ "glepnir/lspsaga.nvim", config = [[require("lspsaga")]] })
 
 		use({
 			"hrsh7th/nvim-cmp",
@@ -62,7 +68,7 @@ return require("packer").startup({
 		use({
 			"zbirenbaum/copilot.lua",
 			event = "VimEnter",
-			config = [[require("plugins.copilot-lua")]],
+			-- config = [[require("plugins.copilot-lua")]],
 		})
 		use({ "zbirenbaum/copilot-cmp", module = "copilot_cmp", after = { "nvim-cmp", "copilot.lua" } })
 
@@ -96,12 +102,15 @@ return require("packer").startup({
 		-- language plugins {{{
 		use({ "spywhere/detect-language.nvim", config = [[require("detect-language").setup()]] })
 
+		use({ "https://git.sr.ht/~p00f/clangd_extensions.nvim", ft = "c", config = [[require("plugins.clangd_ext")]] })
+
 		use({ "LnL7/vim-nix", ft = "nix" })
 
 		-- use({ "preservim/vim-markdown", ft = "markdown" })
 		use({ "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()", ft = "markdown" })
-		use({ "lukas-reineke/headlines.nvim", ft = "markdown", config = [[require("headlines").setup()]] })
+		-- use({ "lukas-reineke/headlines.nvim", ft = "markdown", config = [[require("headlines").setup()]] })
 		use({ "ellisonleao/glow.nvim", ft = "markdown" })
+		use({ "jakewvincent/mkdnflow.nvim", config = [[require("plugins.mkdnflow")]], ft = "markdown" })
 
 		use({ "rust-lang/rust.vim", ft = "rust" })
 		use({ "simrat39/rust-tools.nvim", ft = "rust", config = [[require("plugins.rusttools")]] })
@@ -137,7 +146,6 @@ return require("packer").startup({
 				"nvim-lua/popup.nvim",
 				"nvim-lua/plenary.nvim",
 				"kyazdani42/nvim-web-devicons",
-				"nvim-telescope/telescope-ui-select.nvim",
 			},
 			config = [[require("plugins.telescope")]],
 		})
@@ -151,16 +159,18 @@ return require("packer").startup({
 		use({ "windwp/nvim-ts-autotag", config = [[require("plugins.treesitter").autotag()]] })
 		use({ "p00f/nvim-ts-rainbow", config = [[require("plugins.treesitter").rainbow()]] })
 		use({ "lewis6991/nvim-treesitter-context", config = [[require("plugins.treesitter").context()]] })
+		use({ "nvim-treesitter/nvim-treesitter-textobjects", config = [[require("plugins.treesitter").textobjects()]] })
 		use({
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			config = [[require("plugins.treesitter").commentstring()]],
 		})
 
-		use({
-			"eraserhd/parinfer-rust",
-			run = "cargo build --release",
-			ft = { "fennel", "lisp", "yuck" },
-		})
+		-- use({
+		-- 	"eraserhd/parinfer-rust",
+		-- 	run = "cargo build --release",
+		-- 	ft = Settings.lisp_filetypes,
+		-- })
+		use({ "gpanders/nvim-parinfer", ft = Settings.lisp_filetypes })
 
 		use({ "windwp/nvim-autopairs", after = "nvim-cmp", config = [[require("plugins.autopairs")]] })
 		use({ "gpanders/editorconfig.nvim" })
@@ -184,12 +194,14 @@ return require("packer").startup({
 
 		use({ "tpope/vim-repeat" })
 
-		use({ "timakro/vim-yadi", config = [[require("plugins.yadi")]] })
+		use({ "nmac427/guess-indent.nvim", config = [[require("guess-indent").setup()]] })
 
 		-- use({ "ggandor/lightspeed.nvim" })
 		use({ "ggandor/leap.nvim", config = [[require("plugins.leap")]] })
 
 		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
+
+		use({ "danymat/neogen", config = [[require("neogen").setup({ snippet_engine = "luasnip" })]] })
 
 		use({
 			"kyazdani42/nvim-tree.lua",
@@ -212,6 +224,8 @@ return require("packer").startup({
 
 		-- stylish {{{
 		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
+
+		use({ "stevearc/dressing.nvim", config = [[require("plugins.dressing")]] })
 
 		use({ "j-hui/fidget.nvim", config = [[require("fidget").setup()]] })
 
@@ -236,10 +250,12 @@ return require("packer").startup({
 		use({ "lukas-reineke/indent-blankline.nvim", config = [[require("plugins.indentblankline")]] })
 		use({
 			"norcalli/nvim-colorizer.lua",
-			config = [[require("colorizer").setup { "*", "!packer" }]],
+			config = [[require("colorizer").setup({ "*", "!packer" })]],
 		})
 
 		use({ "rktjmp/lush.nvim" })
+
+		use({ "declancm/cinnamon.nvim", config = [[require("plugins.cinnamon")]] })
 
 		use({
 			"Shatur/neovim-ayu",

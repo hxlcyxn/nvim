@@ -4,11 +4,20 @@
 local lspconfig = require("lspconfig")
 local lsp_util = require("lspconfig.util")
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	underline = true,
-	virtual_text = true,
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 	underline = true,
+-- 	virtual_text = true,
+--signs = true,
+-- 	update_in_insert = true,
+-- })
+
+vim.diagnostic.config({
+	virtual_text = false,
+	virtual_lines = { only_current_line = true },
 	signs = true,
+	underline = true,
 	update_in_insert = true,
+	severity_sort = true,
 })
 
 local function on_attach(client, bufnr)
@@ -17,11 +26,12 @@ local function on_attach(client, bufnr)
 		doc_lines = 0,
 		hint_prefix = "ƒ ",
 	}, bufnr)
+	require("aerial").on_attach(client, bufnr)
 
 	vim.b.omnifunc = "v:lua.vim.lsp.omnifunc"
-	-- Keybindings for LSPs
-	if client.supports_method("document_highlight") then
-		vim.cmd([[hi LspReferenceRead gui=underline]])
+
+	if client.server_capabilities.documentHighlightProvider then
+		vim.api.nvim_set_hl(0, "LspReferenceRead", { undercurl = true })
 
 		local augroup_name = "lsp_document_highlight"
 		vim.api.nvim_create_augroup(augroup_name, { clear = false })
@@ -54,18 +64,10 @@ local function init_lsp(name, extra_config)
 	)
 end
 
-local sumneko_runtime_path = vim.split(package.path, ";")
-table.insert(sumneko_runtime_path, "/lua/?.lua")
-table.insert(sumneko_runtime_path, "lua/?/init.lua")
--- table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "/lua/?.lua")
--- table.insert(sumneko_runtime_path, vim.fn.stdpath("config") .. "lua/?/init.lua")
-
 local servers = {
 	sumneko_lua = {
 		settings = {
 			Lua = {
-				runtime = { version = "LuaJIT", path = sumneko_runtime_path },
-				diagnostics = { globals = { "vim", "packer_plugins" } },
 				workspace = {
 					library = vim.api.nvim_get_runtime_file("", true),
 					preloadFileSize = 200,
@@ -76,6 +78,34 @@ local servers = {
 		},
 	},
 	jsonls = { settings = { json = { schemas = require("schemastore").json.schemas() } } },
+	elixirls = {
+		cmd = { "elixir-ls" },
+		settings = { elixirLS = { dialyzerEnabled = false, fetchDeps = false } },
+		on_attach = function(client, bufnr)
+			on_attach(client, bufnr)
+			local function pipes(direction)
+				local rowcol = vim.api.nvim_win_get_cursor(0)
+				local row = rowcol[1] - 1
+				local col = rowcol[2]
+
+				client.request_sync("workspace/executeCommand", {
+					command = "manipulatePipes:serverid",
+					arguments = { direction, "file://" .. vim.api.nvim_buf_get_name(0), row, col },
+				}, nil, 0)
+			end
+
+			local cmd = vim.api.nvim_buf_create_user_command
+			cmd(bufnr, "ElixirFromPipe", function()
+				pipes("fromPipe")
+			end, {})
+			cmd(bufnr, "ElixirToPipe", function()
+				pipes("toPipe")
+			end, {})
+		end,
+	},
+	powershell_es = {
+		bundle_path = "/opt/powershell-editor-services",
+	},
 	texlab = {
 		root_dir = function(fname)
 			return lsp_util.root_pattern(".latexmkrc")(fname)
@@ -86,16 +116,32 @@ local servers = {
 			texlab = {
 				build = {
 					executable = "tectonic",
-					args = { "-X", "compile", "%f" },
+					args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
 				},
 			},
 		},
 	},
+	yamlls = {
+		settings = {
+			yaml = {
+				schemas = (function()
+					local json_schemas = require("schemastore").json.schemas()
+					local yaml_schemas = {}
+					vim.tbl_map(function(schema)
+						yaml_schemas[schema.url] = schema.fileMatch
+					end, json_schemas)
+					return yaml_schemas
+				end)(),
+			},
+		},
+	},
+	dockerls = {},
 	eslint = {},
 	hls = {},
 	ltex = {},
+	marksman = {},
 	rnix = {},
-	rust_analyzer = {},
+	taplo = {},
 	tsserver = {},
 	vimls = {},
 }
