@@ -36,6 +36,7 @@ end
 require("formatter").setup({
 	logging = false,
 	filetype = {
+		astro = { prettier },
 		c = { require("formatter.filetypes.c").clangformat },
 		elixir = { mix_format },
 		fennel = { fnlfmt },
