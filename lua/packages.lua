@@ -29,7 +29,6 @@ return require("packer").startup({
 		use({ "wbthomason/packer.nvim" })
 
 		use({ "lewis6991/impatient.nvim" })
-		use({ "antoinemadec/FixCursorHold.nvim" })
 		use({ "monkoose/matchparen.nvim", config = [[require("matchparen").setup()]] })
 		-- }}}
 		-- lsp etc {{{
@@ -41,6 +40,7 @@ return require("packer").startup({
 		use({ "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 		use({ "stevearc/aerial.nvim", config = [[require("aerial").setup()]] })
 		use({ "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = [[require("lsp_lines").setup()]] })
+		use({ "https://gitlab.com/yorickpeterse/nvim-dd.git", config = [[require("dd").setup()]] })
 		-- use({ "simrat39/symbols-outline.nvim" })
 		use({
 			"kosayoda/nvim-lightbulb",
@@ -202,6 +202,12 @@ return require("packer").startup({
 		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
 
 		use({ "danymat/neogen", config = [[require("neogen").setup({ snippet_engine = "luasnip" })]] })
+
+		use({
+			"ThePrimeagen/refactoring.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = [[require("refactoring").setup()]],
+		})
 
 		use({
 			"kyazdani42/nvim-tree.lua",
