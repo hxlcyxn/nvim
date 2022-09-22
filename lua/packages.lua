@@ -263,14 +263,16 @@ return require("packer").startup({
 				require("ayu").setup({
 					mirage = _G.Settings.ayu_mirage,
 				})
-				require("ayu").colorscheme()
+				if _G.Settings.colorscheme == "ayu" then
+					require("ayu").colorscheme()
+				end
 			end,
 		})
 
-		local other_themes = { xresources = "nekonako/xresources-nvim" }
+		local other_themes = { xresources = "nekonako/xresources-nvim", stargaze = "~/src/stargaze.nvim" }
 		for name, theme in pairs(other_themes) do
 			if _G.Settings.colorscheme == name then
-				use({ theme, config = [[:colorscheme]] .. name })
+				use({ theme, config = [[vim.cmd(":colorscheme ]] .. name .. [[")]] })
 			else
 				use({ theme })
 			end

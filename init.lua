@@ -2,8 +2,8 @@ Utils = {}
 Commands = {}
 
 Settings = {
-	colorscheme = "ayu", -- "ayu"|"xresources"
-	background = "dark", -- "dark"|"light"
+	colorscheme = "stargaze", -- "ayu"|"xresources"
+	background = "light", -- "dark"|"light"
 
 	ayu_mirage = false, -- true|false
 

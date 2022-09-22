@@ -26,6 +26,24 @@ M.ayu_dark = {
 	cyan = "#95e6cb",
 }
 
+if _G.Settings.colorscheme == "stargaze" then
+	local sg = require("stargaze.colors")
+	sg.generate()
+
+	M.stargaze = {
+		fg1 = sg.fg,
+		fg2 = sg.llgray,
+		bg1 = sg.bg,
+		bg2 = sg.gray,
+		red = sg.red,
+		green = sg.green,
+		yellow = sg.yellow,
+		blue = sg.blue,
+		purple = sg.purple,
+		cyan = sg.cyan,
+	}
+end
+
 -- NOTE: when xresources is required it automatically sets the colorscheme so you can"t require it always
 if _G.Settings.colorscheme == "xresources" then
 	local xres = require("xresources")
