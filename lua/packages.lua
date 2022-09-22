@@ -249,7 +249,7 @@ return require("packer").startup({
 
 		use({ "lukas-reineke/indent-blankline.nvim", config = [[require("plugins.indentblankline")]] })
 		use({
-			"norcalli/nvim-colorizer.lua",
+			"NvChad/nvim-colorizer.lua",
 			config = [[require("plugins.colorizer")]],
 		})
 

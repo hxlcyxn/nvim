@@ -1,4 +1,16 @@
 require("colorizer").setup({
-	"*",
-	"!packer",
-}, { RRGGBBAA = true, css = true, css_fn = true })
+	filetypes = { "*", "!packer" },
+	user_default_options = {
+		RGB = true,
+		RRGGBB = true,
+		names = false,
+		RRGGBBAA = true,
+		AARRGGBB = true,
+		rgb_fn = true,
+		hsl_fn = true,
+		mode = "virtualtext",
+		tailwind = "both",
+		sass = { enable = true },
+		virtualtext = "■",
+	},
+})
