@@ -63,12 +63,8 @@ local function button(value, shortcut, opts)
 		type = "button",
 		val = value,
 		on_press = function()
-			local key = vim.api.nvim_replace_termcodes(
-				shortcut:gsub("%s", ""):gsub("SPC", "<leader>"),
-				true,
-				false,
-				true
-			)
+			local key =
+				vim.api.nvim_replace_termcodes(shortcut:gsub("%s", ""):gsub("SPC", "<leader>"), true, false, true)
 			vim.api.nvim_feedkeys(key, "normal", false)
 		end,
 	}

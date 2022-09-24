@@ -99,7 +99,7 @@ M.textobjects = function()
 				["if"] = "@function.inner",
 				["ac"] = "@class.outer",
 				["ic"] = "@class.inner",
-			}
+			},
 		},
 	})
 end
