@@ -1,6 +1,6 @@
 require("notify").setup({
-	stages = "slide",
-	render = "minimal",
+	stages = "fade_in_slide_out",
+	render = "simple",
 })
 
 vim.notify = require("notify")
