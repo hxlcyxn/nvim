@@ -278,7 +278,7 @@ return require("packer").startup({
 		local other_themes = { xresources = "nekonako/xresources-nvim", stargaze = "~/src/stargaze.nvim" }
 		for name, theme in pairs(other_themes) do
 			if _G.Settings.colorscheme == name then
-				use({ theme, config = [[vim.cmd(":colorscheme ]] .. name .. [[")]] })
+				use({ theme, config = ([[vim.cmd(":colorscheme %s")]]):format(name) })
 			else
 				use({ theme })
 			end
