@@ -1,8 +1,8 @@
 local feline = require("feline")
 
-local colorscheme = _G.Settings.colorscheme
+local colorscheme = Settings.colorscheme
 if colorscheme == "ayu" then
-	colorscheme = colorscheme .. "_" .. _G.Settings.background
+	colorscheme = colorscheme .. "_" .. Settings.background
 end
 
 local cl = require("plugins.colours")[colorscheme]

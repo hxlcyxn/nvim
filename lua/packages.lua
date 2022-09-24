@@ -267,9 +267,9 @@ return require("packer").startup({
 			"Shatur/neovim-ayu",
 			config = function()
 				require("ayu").setup({
-					mirage = _G.Settings.ayu_mirage,
+					mirage = Settings.ayu_mirage,
 				})
-				if _G.Settings.colorscheme == "ayu" then
+				if Settings.colorscheme == "ayu" then
 					require("ayu").colorscheme()
 				end
 			end,
@@ -277,7 +277,7 @@ return require("packer").startup({
 
 		local other_themes = { xresources = "nekonako/xresources-nvim", stargaze = "~/src/stargaze.nvim" }
 		for name, theme in pairs(other_themes) do
-			if _G.Settings.colorscheme == name then
+			if Settings.colorscheme == name then
 				use({ theme, config = ([[vim.cmd(":colorscheme %s")]]):format(name) })
 			else
 				use({ theme })

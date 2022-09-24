@@ -1,8 +1,8 @@
 vim.api.nvim_exec("filetype plugin indent on", true)
 vim.api.nvim_exec("syntax enable", true)
 
-vim.g.mapleader = _G.Settings.mapleader
-vim.g.maplocalleader = _G.Settings.localleader
+vim.g.mapleader = Settings.mapleader
+vim.g.maplocalleader = Settings.localleader
 
 vim.opt.clipboard = "unnamedplus"
 
@@ -16,7 +16,7 @@ vim.opt.sidescrolloff = 5
 
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
-vim.opt.background = _G.Settings.background
+vim.opt.background = Settings.background
 
 vim.opt.laststatus = 3
 
@@ -37,12 +37,12 @@ vim.opt.breakindentopt = "shift:2"
 vim.opt.showbreak = "> "
 vim.opt.whichwrap:append("<>hl")
 
-vim.opt.tabstop = _G.Settings.indent
-vim.opt.softtabstop = _G.Settings.indent
-vim.opt.shiftwidth = _G.Settings.indent
+vim.opt.tabstop = Settings.indent
+vim.opt.softtabstop = Settings.indent
+vim.opt.shiftwidth = Settings.indent
 vim.opt.smartindent = true
 vim.opt.copyindent = false
-if _G.Settings.indent_style == "spaces" then
+if Settings.indent_style == "spaces" then
 	vim.opt.expandtab = true
 end
 

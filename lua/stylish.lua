@@ -1,4 +1,4 @@
-if _G.Settings.background == "light" then
+if Settings.background == "light" then
 	vim.o.background = "light"
 else
 	vim.o.background = "dark"
@@ -39,12 +39,12 @@ end
 
 -- }}}
 
-if _G.Settings.colorscheme == "ayu" then
-	if _G.Settings.ayu_ver == "luxed" then
+if Settings.colorscheme == "ayu" then
+	if Settings.ayu_ver == "luxed" then
 		luxed_ayu()
-	elseif _G.Settings.ayu_ver == "nvim" then
+	elseif Settings.ayu_ver == "nvim" then
 		nvim_ayu()
 	end
-elseif _G.Settings.colorscheme == "xresources" then
+elseif Settings.colorscheme == "xresources" then
 	xresources()
 end
