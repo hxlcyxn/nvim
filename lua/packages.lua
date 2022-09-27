@@ -226,6 +226,14 @@ return require("packer").startup({
 			cmd = { "Twilight", "TwilightEnable" },
 			config = [[require("twilight").setup {}]],
 		})
+
+		use({
+			"anuvyklack/windows.nvim",
+			requires = { "anuvyklack/middleclass" },
+			config = [[require("plugins.windows")]],
+		})
+
+		-- use({ "levouh/tint.nvim", config = [[require("plugins.tint")]] })
 		-- }}}
 
 		-- stylish {{{
