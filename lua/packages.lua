@@ -106,7 +106,7 @@ return require("packer").startup({
 
 		use({ "LnL7/vim-nix", ft = "nix" })
 
-		-- use({ "preservim/vim-markdown", ft = "markdown" })
+		use({ "preservim/vim-markdown", ft = "markdown" })
 		use({ "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()", ft = "markdown" })
 		-- use({ "lukas-reineke/headlines.nvim", ft = "markdown", config = [[require("headlines").setup()]] })
 		use({ "ellisonleao/glow.nvim", ft = "markdown" })
