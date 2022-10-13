@@ -75,7 +75,7 @@ wk.register({
 		name = "files",
 		a = { cmd("Telescope live_grep"), "grep files" },
 		f = { cmd("Telescope find_files"), "open file finder" },
-		h = { cmd("Telescope oldfiles"), "open file hsitory" },
+		h = { cmd("Telescope oldfiles"), "open file history" },
 		n = { cmd("enew"), "create new file" },
 		s = { cmd("Telescope projects"), "select & open projects" },
 	},
