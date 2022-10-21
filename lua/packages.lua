@@ -121,6 +121,8 @@ return require("packer").startup({
 			config = [[require("crates").setup()]],
 		})
 
+		use({ "mfussenegger/nvim-jdtls" })
+
 		use({ "jaawerth/fennel.vim", ft = "fennel" })
 
 		use({ "neovimhaskell/haskell-vim", ft = "haskell" })
