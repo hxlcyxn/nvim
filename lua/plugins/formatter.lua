@@ -47,6 +47,7 @@ require("formatter").setup({
 		jsonc = { prettier },
 		lua = { require("formatter.filetypes.lua").stylua },
 		markdown = { prettier },
+		python = { require("formatter.filetypes.python").black },
 		rust = { require("formatter.filetypes.rust").rustfmt },
 		toml = { require("formatter.filetypes.toml").taplo },
 		typescript = { require("formatter.filetypes.typescript").prettier },
