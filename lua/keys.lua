@@ -77,7 +77,6 @@ wk.register({
 		f = { cmd("Telescope find_files"), "open file finder" },
 		h = { cmd("Telescope oldfiles"), "open file history" },
 		n = { cmd("enew"), "create new file" },
-		s = { cmd("Telescope projects"), "select & open projects" },
 	},
 	g = { name = "git", b = { cmd("GitBlameToggle"), "toggle blame" }, g = { cmd("Neogit"), "neogit" } },
 	p = {
