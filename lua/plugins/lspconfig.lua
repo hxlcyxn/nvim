@@ -26,7 +26,6 @@ local function on_attach(client, bufnr)
 		doc_lines = 0,
 		hint_prefix = "ƒ ",
 	}, bufnr)
-	require("aerial").on_attach(client, bufnr)
 
 	vim.b.omnifunc = "v:lua.vim.lsp.omnifunc"
 
