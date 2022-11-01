@@ -21,12 +21,6 @@ vim.diagnostic.config({
 })
 
 local function on_attach(client, bufnr)
-	require("lsp_signature").on_attach({
-		bind = true,
-		doc_lines = 0,
-		hint_prefix = "ƒ ",
-	}, bufnr)
-
 	vim.b.omnifunc = "v:lua.vim.lsp.omnifunc"
 
 	if client.server_capabilities.documentHighlightProvider then

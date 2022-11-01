@@ -36,11 +36,10 @@ return require("packer").startup({
 
 		use({ "neovim/nvim-lspconfig", config = [[require("plugins.lspconfig")]] })
 		use({ "onsails/lspkind-nvim" })
-		use({ "ray-x/lsp_signature.nvim" })
 		use({ "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-		use({ "stevearc/aerial.nvim", config = [[require("aerial").setup()]] })
+		use({ "stevearc/aerial.nvim", cmd = { "AerialOpen", "AerialToggle" }, config = [[require("aerial").setup()]] })
 		use({ "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = [[require("lsp_lines").setup()]] })
-		use({ "https://gitlab.com/yorickpeterse/nvim-dd.git", config = [[require("dd").setup()]] })
+		-- use({ "https://gitlab.com/yorickpeterse/nvim-dd.git", config = [[require("dd").setup()]] })
 		-- use({ "simrat39/symbols-outline.nvim" })
 		use({
 			"kosayoda/nvim-lightbulb",
@@ -239,11 +238,13 @@ return require("packer").startup({
 		-- }}}
 
 		-- stylish {{{
+		use({ "MunifTanjim/nui.nvim" })
+
+		use({ "folke/noice.nvim", config = [[require("plugins.noice")]] })
+
 		use({ "rcarriga/nvim-notify", config = [[require("plugins.notify")]] })
 
 		use({ "stevearc/dressing.nvim", config = [[require("plugins.dressing")]] })
-
-		use({ "j-hui/fidget.nvim", config = [[require("fidget").setup()]] })
 
 		use({
 			"goolord/alpha-nvim",

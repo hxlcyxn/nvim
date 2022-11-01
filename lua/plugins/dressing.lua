@@ -1,7 +1,8 @@
 require("dressing").setup({
 	input = { border = "single" },
 	select = {
-		backend = "telescope",
+		backend = "nui",
+		nui = { border = { style = "single" } },
 		get_config = function(opts)
 			print(opts.kind)
 			if opts.kind == "codeaction" then

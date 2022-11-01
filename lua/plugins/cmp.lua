@@ -85,22 +85,22 @@ cmp.setup({
 	experimental = { ghost_text = true },
 })
 
-cmp.setup.cmdline(":", {
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
-		{ name = "cmdline" },
-	}),
-})
+-- cmp.setup.cmdline(":", {
+-- 	sources = cmp.config.sources({
+-- 		{ name = "path" },
+-- 	}, {
+-- 		{ name = "cmdline" },
+-- 	}),
+-- })
 
-cmp.setup.cmdline("/", {
-	sources = {
-		{ name = "buffer" },
-	},
-	view = {
-		entries = {
-			name = "wildmenu",
-			separator = "|",
-		},
-	},
-})
+-- cmp.setup.cmdline("/", {
+-- 	sources = {
+-- 		{ name = "buffer" },
+-- 	},
+-- 	view = {
+-- 		entries = {
+-- 			name = "wildmenu",
+-- 			separator = "|",
+-- 		},
+-- 	},
+-- })
