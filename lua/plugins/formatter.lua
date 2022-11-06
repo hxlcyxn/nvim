@@ -33,6 +33,14 @@ local function mix_format()
 	}
 end
 
+local function alejandra()
+	return {
+		exe = "alejandra",
+		args = { "" },
+		stdin = true,
+	}
+end
+
 require("formatter").setup({
 	logging = false,
 	filetype = {
@@ -47,6 +55,7 @@ require("formatter").setup({
 		jsonc = { prettier },
 		lua = { require("formatter.filetypes.lua").stylua },
 		markdown = { prettier },
+		nix = { alejandra },
 		python = { require("formatter.filetypes.python").black },
 		rust = { require("formatter.filetypes.rust").rustfmt },
 		toml = { require("formatter.filetypes.toml").taplo },

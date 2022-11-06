@@ -1,6 +1,7 @@
 require("lint").linters_by_ft = {
 	elixir = { "credo" },
 	lua = { "selene" },
+	nix = { "statix" },
 	sh = { "shellcheck" },
 }
 
