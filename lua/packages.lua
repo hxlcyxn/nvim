@@ -201,7 +201,8 @@ return require("packer").startup({
 		-- use({ "ggandor/lightspeed.nvim" })
 		use({ "ggandor/leap.nvim", config = [[require("plugins.leap")]] })
 
-		use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
+		-- use({ "b3nj5m1n/kommentary", config = [[require("plugins.kommentary")]] })
+		use({ "numToStr/Comment.nvim", config = [[require("plugins.comment")]] })
 
 		use({ "danymat/neogen", config = [[require("neogen").setup({ snippet_engine = "luasnip" })]] })
 
