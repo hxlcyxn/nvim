@@ -68,9 +68,14 @@ return require("packer").startup({
 		use({
 			"zbirenbaum/copilot.lua",
 			event = "VimEnter",
-			-- config = [[require("plugins.copilot-lua")]],
+			config = [[require("plugins.copilot-lua")]],
 		})
-		use({ "zbirenbaum/copilot-cmp", module = "copilot_cmp", after = { "nvim-cmp", "copilot.lua" } })
+		use({
+			"zbirenbaum/copilot-cmp",
+			module = "copilot_cmp",
+			after = { "nvim-cmp", "copilot.lua" },
+			config = [[require("copilot_cmp").setup()]],
+		})
 
 		use({
 			"mfussenegger/nvim-dap",
