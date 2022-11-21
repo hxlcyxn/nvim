@@ -246,6 +246,8 @@ return require("packer").startup({
 			config = [[require("plugins.windows")]],
 		})
 
+		use({ "https://gitlab.com/yorickpeterse/nvim-pqf.git", config = [[require('pqf').setup()]] })
+
 		-- use({ "levouh/tint.nvim", config = [[require("plugins.tint")]] })
 		-- }}}
 
