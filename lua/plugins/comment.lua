@@ -24,6 +24,6 @@ wk.register({
 	prefix = "<leader>",
 	mode = "v",
 	c = {
-		["<space>"] = { "<Plug>(comment_toggle_linewise)", "comment lines" },
+		["<space>"] = { "<Plug>(comment_toggle_linewise_visual)", "comment lines" },
 	},
 })
