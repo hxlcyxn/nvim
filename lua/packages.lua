@@ -193,6 +193,11 @@ return require("packer").startup({
 		use({ "f-person/git-blame.nvim", setup = [[vim.g.gitblame_enabled = 0]] })
 		use({ "sindrets/diffview.nvim", config = [[require("diffview").setup()]] })
 		use({
+			"akinsho/git-conflict.nvim",
+			tag = "*",
+			config = [[require("plugins.git-conflict")]],
+		})
+		use({
 			"TimUntersberger/neogit",
 			requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
 			cmd = "Neogit",
