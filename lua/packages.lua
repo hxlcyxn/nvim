@@ -128,6 +128,8 @@ return require("packer").startup({
 
 		use({ "mfussenegger/nvim-jdtls" })
 
+		use({ "akinsho/flutter-tools.nvim", config = [[require("plugins.flutter-tools")]] })
+
 		use({ "jaawerth/fennel.vim", ft = "fennel" })
 
 		use({ "neovimhaskell/haskell-vim", ft = "haskell" })
