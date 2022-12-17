@@ -1,9 +1,13 @@
 {
-	"$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-	"runtime": {
-		"version": "LuaJIT"
-	},
-	"diagnostics": {
-		"globals": ["vim", "packer_plugins"]
-	}
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "Lua.workspace.checkThirdParty": false,
+    "diagnostics": {
+        "globals": [
+            "vim",
+            "packer_plugins"
+        ]
+    },
+    "runtime": {
+        "version": "LuaJIT"
+    }
 }
