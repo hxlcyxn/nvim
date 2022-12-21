@@ -4,6 +4,7 @@ Commands = {}
 Settings = {
 	colorscheme = "stargaze", -- "ayu"|"xresources"
 	background = "light", -- "dark"|"light"
+	border = "single",
 	guifont = "FiraCode Nerd Font",
 	fontsize = "12",
 
