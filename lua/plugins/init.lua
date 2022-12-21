@@ -1,4 +1,5 @@
 return {
+	"folke/which-key.nvim",
 	{
 		"monkoose/matchparen.nvim",
 		config = function()
@@ -10,5 +11,5 @@ return {
 		config = function()
 			vim.cmd("colorscheme stargaze")
 		end,
-	}
+	},
 }
