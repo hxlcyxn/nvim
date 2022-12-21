@@ -5,7 +5,7 @@ Settings = {
 	colorscheme = "stargaze", -- "ayu"|"xresources"
 	background = "light", -- "dark"|"light"
 	guifont = "FiraCode Nerd Font",
-	fontsize = "14",
+	fontsize = "12",
 
 	ayu_mirage = false, -- true|false
 
@@ -17,19 +17,16 @@ Settings = {
 	lisp_filetypes = { "fennel", "lisp", "yuck" },
 }
 
-pcall(require, "impatient") --.enable_profile()
-
 require("options")
-vim.schedule(function()
-	require("packages")
-end)
+require("pm")
+require("mappings")
 
--- vim.cmd("au VimLeave * set guicursor=a:hor20-blinkon0")
 vim.schedule(function()
 	vim.api.nvim_create_autocmd({ "VimLeave" }, {
 		desc = "Set cursor to a blinking bar when leaving neovim.",
 		callback = function()
 			vim.opt.guicursor = "a:ver25-blinkon250"
+			-- vim.opt.guicursor = "a:hor20-blinkon0"
 		end,
 	})
 end)
