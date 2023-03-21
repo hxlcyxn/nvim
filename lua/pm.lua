@@ -19,10 +19,7 @@ require("lazy").setup("plugins", {
 		path = "~/src",
 		pattern = "hxlcyxn",
 	},
-	install = {
-		missing = true,
-		colorscheme = { "stargaze", "quiet" },
-	},
+	install = { colorscheme = { "stargaze", "quiet" } },
 	ui = {
 		border = Settings.border,
 	},
@@ -32,9 +29,18 @@ require("lazy").setup("plugins", {
 	performance = {
 		rtp = {
 			disabled_plugins = {
+				"2html_plugin",
+				"getscript",
+				"getscriptPlugin",
 				"gzip",
-				"netrwPlugin",
+				"logipat",
+				"matchit",
 				"matchparen",
+				"netrwFileHandlers",
+				"netrwPlugin",
+				"netrwSettings",
+				"rrhelper",
+				"tar",
 				"tarPlugin",
 				"tohtml",
 				"tutor",

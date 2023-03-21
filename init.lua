@@ -8,12 +8,18 @@ Settings = {
 	guifont = "FiraCode Nerd Font",
 	fontsize = "12",
 
+	borderchars = { " " },
+	winblend = 10,
+	pumblend = 10,
+
 	ayu_mirage = false, -- true|false
 
 	mapleader = " ", -- affects basically all commands, most important button
 	localleader = "-", -- other commands
 	indent_style = "tabs", -- tabs|spaces
 	indent = 4, -- your indentation size
+
+	lsp_autstart = false,
 
 	lisp_filetypes = { "fennel", "lisp", "yuck" },
 }
