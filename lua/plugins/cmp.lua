@@ -60,7 +60,7 @@ return {
 
 			return {
 				mapping = {
-					["<TAB>"] = cmp.mapping(tab_complete, {"i", "s" }),
+					["<TAB>"] = cmp.mapping(tab_complete, { "i", "s" }),
 					["<S-TAB>"] = cmp.mapping(shift_tab_complete, { "i", "s" }),
 					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -71,7 +71,7 @@ return {
 						select = true,
 					}),
 				},
-				window = {documentation = { border = Settings.borderchars } },
+				window = { documentation = { border = Settings.borderchars } },
 				sorting = {
 					comparators = {
 						cmpr.offset,

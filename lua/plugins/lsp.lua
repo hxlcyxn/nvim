@@ -19,18 +19,18 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
-			"mason.nvim",
-			"lsp_lines.nvim",
+			"williamboman/mason.nvim",
+			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		keys = {
-			{ "<leader>mc", vim.lsp.buf.code_action,    desc = "code actions" },
-			{ "<leader>mh", show_docs,                  desc = "show documentation" },
-			{ "<leader>mr", vim.lsp.buf.rename,         desc = "rename node" },
+			{ "<leader>mc", vim.lsp.buf.code_action, desc = "code actions" },
+			{ "<leader>mh", show_docs, desc = "show documentation" },
+			{ "<leader>mr", vim.lsp.buf.rename, desc = "rename node" },
 			{ "<leader>ms", vim.lsp.buf.signature_help, desc = "signature help" },
-			{ "<leader>mg", vim.lsp.buf.definition,     desc = "go to definition" },
+			{ "<leader>mg", vim.lsp.buf.definition, desc = "go to definition" },
 			{ "<leader>mi", vim.lsp.buf.implementation, desc = "show implementation" },
-			{ "<leader>mf", vim.lsp.buf.format,         desc = "format with lsp formatter" },
+			{ "<leader>mf", vim.lsp.buf.format, desc = "format with lsp formatter" },
 		},
 		opts = {
 			diagnostics = {
@@ -50,8 +50,9 @@ return {
 								library = vim.api.nvim_get_runtime_file("", true),
 								preloadFileSize = 200,
 							},
+							format = { enable = false },
 							hint = { enabled = true },
-							telemetry = { enabled = true },
+							telemetry = { enabled = false },
 						},
 					},
 				},
@@ -90,6 +91,23 @@ return {
 		end,
 	},
 	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+		opts = {
+			ensure_installed = { "stylua" },
+			automatic_setup = true,
+		},
+		config = function(_, opts)
+			require("mason-null-ls").setup(opts)
+			require("null-ls").setup()
+			require("mason-null-ls").setup_handlers()
+		end,
+	},
+	{
 		"williamboman/mason.nvim",
 		cmd = "Mason",
 		opts = {
@@ -104,5 +122,13 @@ return {
 	{
 		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		config = true,
-	}
+	},
+	{
+		"j-hui/fidget.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+			text = { spinner = "arc" },
+		},
+		config = true,
+	},
 }

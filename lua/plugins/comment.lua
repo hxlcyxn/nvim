@@ -4,7 +4,7 @@ return {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	},
 	event = "VeryLazy",
-	opts  = {
+	opts = {
 		hooks = {
 			pre = function()
 				require("ts_context_commentstring.internal").update_commentstring({})
@@ -14,7 +14,7 @@ return {
 			comment = "<leader>c",
 			comment_line = "<leader>cc",
 			textobject = "cc",
-		}
+		},
 	},
 	config = require("util").wrapsetup("mini.comment"),
 }

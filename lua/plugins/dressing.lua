@@ -19,7 +19,7 @@ return {
 				if opts.kind == "codeaction" then
 					return { telescope = require("telescope.themes").get_cursor() }
 				end
-			end
+			end,
 		},
 	},
 	config = true,
