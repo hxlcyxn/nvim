@@ -17,6 +17,8 @@ vim.opt.sidescrolloff = 5
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
 vim.opt.background = Settings.background
+vim.opt.winblend = Settings.winblend
+vim.opt.pumblend = Settings.pumblend
 
 vim.opt.laststatus = 3
 
@@ -24,6 +26,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.numberwidth = 2
 vim.opt.cursorline = true
+vim.opt.cmdheight = 0
 
 vim.opt.list = true
 vim.opt.listchars = "tab:→ ,trail:·,eol:↲" -- ↵↲⏎
