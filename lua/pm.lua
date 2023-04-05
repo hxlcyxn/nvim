@@ -49,3 +49,6 @@ require("lazy").setup("plugins", {
 		},
 	},
 })
+
+local cmd = require("util").cmd
+vim.api.nvim_set_keymap("n", "<leader>Ll", cmd("Lazy"), { desc = "open lazy.nvim dashboard" })
