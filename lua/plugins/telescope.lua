@@ -10,6 +10,7 @@ return {
 	keys = {
 		{ "<leader>bf", cmd("Telescope buffers show_all_buffers=true"), desc = "open buffer list" },
 		{ "<leader>fa", cmd("Telescope live_grep"), desc = "grep files" },
+		{ "<leader>fb", cmd("Telescope buffers"), desc = "open buffer list" },
 		{ "<leader>ff", cmd("Telescope find_files"), desc = "open file finder" },
 		{ "<leader>fh", cmd("Telescope oldfiles"), desc = "open file history" },
 	},
