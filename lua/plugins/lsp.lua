@@ -72,6 +72,19 @@ return {
 		end,
 	},
 	{
+		"mfussenegger/nvim-jdtls",
+		ft = "java",
+		opts = function()
+			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+			local workspace_dir = vim.fn.stdpath("data") .. "/jdtls/" .. project_name
+			return {
+				cmd = { "jdtls", "-data", workspace_dir },
+				root_dir = vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]),
+			}
+		end,
+		config = true,
+	},
+	{
 		"jose-elias-alvarez/null-ls.nvim",
 		dependencies = {
 			"ThePrimeagen/refactoring.nvim",
