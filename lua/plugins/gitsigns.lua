@@ -4,7 +4,7 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	opts = {
 		preview_config = {
-			border = Settings.border,
+			border = Settings.borderchars,
 		},
 		on_attach = function(bufnr)
 			vim.api.nvim_buf_set_keymap(

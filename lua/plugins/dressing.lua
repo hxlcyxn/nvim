@@ -7,13 +7,14 @@ return {
 	opts = {
 		input = { border = Settings.borderchars },
 		select = {
-			backend = "Telescope",
+			backend = "telescope",
 			telescope = {
 				layout_strategy = "horizontal",
 				layout_config = {
-					width = 0.4,
+					width = 0.2,
 					height = 0.3,
 				},
+				borderchars = Settings.borderchars,
 			},
 			get_config = function(opts)
 				if opts.kind == "codeaction" then
