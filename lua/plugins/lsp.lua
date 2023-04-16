@@ -128,6 +128,18 @@ return {
 		config = true,
 	},
 	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			{ "SmiteshP/nvim-navic", dependencies = { "neovim/nvim-lspconfig" } },
+			"nvim-tree/nvim-web-devicons",
+		},
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
+		config = true,
+	},
+	{
 		"j-hui/fidget.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
