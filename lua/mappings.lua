@@ -10,4 +10,4 @@ map("n", "<leader>bh", cmd("bprevious"), { desc = "previous buffer" })
 map("n", "<leader>bl", cmd("bnext"), { desc = "next buffer" })
 map("n", "<leader>bw", cmd("bwipeout"), { desc = "wipe current buffer" })
 
-map("t", "<Esc>", "<C-\\><C-n>")
+map("t", "<Esc>", "<C-\\><C-n>", {})
