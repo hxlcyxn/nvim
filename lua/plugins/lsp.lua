@@ -42,13 +42,11 @@ return {
 			},
 			servers = {
 				jsonls = {},
+				rust_analyzer = {},
 				lua_ls = {
 					settings = {
 						Lua = {
-							workspace = {
-								library = vim.api.nvim_get_runtime_file("", true),
-								preloadFileSize = 200,
-							},
+							workspace = { library = vim.api.nvim_get_runtime_file("", true), preloadFileSize = 200 },
 							format = { enable = false },
 							hint = { enabled = true },
 							telemetry = { enabled = false },
@@ -78,11 +76,13 @@ return {
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 			local workspace_dir = vim.fn.stdpath("data") .. "/jdtls/" .. project_name
 			return {
-				cmd = { "jdtls", "-data", workspace_dir },
+				cmd = { "jdt-language-server", "-data", workspace_dir },
 				root_dir = vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]),
 			}
 		end,
-		config = true,
+		config = function(_, opts)
+			require("jdtls").start_or_attach(opts)
+		end,
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
