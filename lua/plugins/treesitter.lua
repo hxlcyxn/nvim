@@ -12,6 +12,7 @@ return {
 		ignore_install = {
 			"json",
 			"jsonc",
+			"comment",
 		},
 		highlight = {
 			enable = true,
