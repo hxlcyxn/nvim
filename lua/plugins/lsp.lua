@@ -41,6 +41,7 @@ return {
 				severity_sort = true,
 			},
 			servers = {
+				clangd = {};
 				jsonls = {},
 				rust_analyzer = {},
 				lua_ls = {
@@ -113,7 +114,11 @@ return {
 					null_ls.builtins.diagnostics.credo,
 					null_ls.builtins.diagnostics.deadnix,
 					null_ls.builtins.diagnostics.ltrs,
-					null_ls.builtins.diagnostics.selene,
+					null_ls.builtins.diagnostics.selene.with({
+						condition = function(utils)
+							return utils.root_has_file({ "selene.toml" })
+						end,
+					}),
 					null_ls.builtins.diagnostics.shellcheck,
 					null_ls.builtins.diagnostics.statix,
 
@@ -161,6 +166,7 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
+		tag = "legacy",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			text = { spinner = "arc" },
