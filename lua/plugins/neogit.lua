@@ -1,7 +1,7 @@
 local cmd = require("util").cmd
 
 return {
-	"TimUntersberger/neogit",
+	"NeogitOrg/neogit",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"sindrets/diffview.nvim",
