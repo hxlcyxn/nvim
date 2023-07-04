@@ -72,8 +72,7 @@ return {
 	},
 	{
 		"mfussenegger/nvim-jdtls",
-		-- ft = "java",
-		event = "VeryLazy",
+		event = "VimEnter",
 		opts = function()
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 			local workspace_dir = vim.fn.stdpath("data") .. "/jdtls/" .. project_name
