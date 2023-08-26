@@ -41,7 +41,7 @@ return {
 				severity_sort = true,
 			},
 			servers = {
-				clangd = {};
+				clangd = {},
 				jsonls = {},
 				rust_analyzer = {},
 				lua_ls = {
