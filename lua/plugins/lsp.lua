@@ -91,6 +91,16 @@ return {
 		end,
 	},
 	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		opts = {
+			suggestion = { enabled = false },
+			panel = { enabled = false },
+		},
+		config = true,
+	},
+	{
 		"jose-elias-alvarez/null-ls.nvim",
 		dependencies = {
 			"ThePrimeagen/refactoring.nvim",
