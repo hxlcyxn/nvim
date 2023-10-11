@@ -57,6 +57,16 @@ return {
 			},
 		},
 		config = function(_, opts)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local buffer = args.buf
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+					if client.server_capabilities.inlayHintProvider then
+						vim.lsp.inlay_hint(buffer, true)
+					end
+				end,
+			})
 			vim.diagnostic.config(opts.diagnostics)
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
