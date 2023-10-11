@@ -29,7 +29,7 @@ vim.opt.cursorline = true
 vim.opt.cmdheight = 0
 
 vim.opt.list = true
-vim.opt.listchars = "tab:→ ,trail:·,eol:↲" -- ↵↲⏎
+vim.opt.listchars = "tab:▏ ,trail:·,eol:↲" -- → ↵↲⏎
 
 vim.opt.conceallevel = 2
 
