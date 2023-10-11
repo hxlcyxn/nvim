@@ -111,7 +111,26 @@ return {
 		config = true,
 	},
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+		dependencies = "nvim-jdtls",
+		event = "VeryLazy",
+		opts = {
+			server = {
+				cmd = {
+					"sonarlint-ls",
+					"stdio",
+					"-analyzers",
+					"/usr/share/java/sonarlint-ls/analyzers/sonarjava.jar",
+				},
+			},
+			filetypes = {
+				"java",
+			},
+		},
+		config = true,
+	},
+	{
+		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"ThePrimeagen/refactoring.nvim",
 			{ "CKolkey/ts-node-action", dependencies = { "nvim-treesitter" } },
