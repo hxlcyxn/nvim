@@ -43,6 +43,7 @@ return {
 			servers = {
 				clangd = {},
 				jsonls = {},
+				nixd = {},
 				rust_analyzer = {},
 				lua_ls = {
 					settings = {
@@ -133,7 +134,7 @@ return {
 		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"ThePrimeagen/refactoring.nvim",
-			{ "CKolkey/ts-node-action", dependencies = { "nvim-treesitter" } },
+			{ "CKolkey/ts-node-action", dependencies = { "nvim-treesitter/nvim-treesitter" } },
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		opts = function()
@@ -145,7 +146,6 @@ return {
 					null_ls.builtins.code_actions.ltrs,
 					null_ls.builtins.code_actions.refactoring,
 					null_ls.builtins.code_actions.shellcheck,
-					null_ls.builtins.code_actions.statix,
 					null_ls.builtins.code_actions.ts_node_action,
 
 					null_ls.builtins.diagnostics.clang_check,
@@ -158,7 +158,6 @@ return {
 						end,
 					}),
 					null_ls.builtins.diagnostics.shellcheck,
-					null_ls.builtins.diagnostics.statix,
 
 					null_ls.builtins.formatting.alejandra,
 					null_ls.builtins.formatting.black,
