@@ -44,6 +44,7 @@ return {
 				clangd = {},
 				jsonls = {},
 				nixd = {},
+				html = {},
 				rust_analyzer = {},
 				lua_ls = {
 					settings = {
