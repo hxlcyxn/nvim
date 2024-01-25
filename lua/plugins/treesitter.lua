@@ -21,6 +21,14 @@ return {
 				additional_vim_regex_highlighting = true,
 			},
 			indent = { enable = true },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					node_incremental = "v",
+					scope_incremental = "C-v",
+					node_decremental = "V",
+				},
+			},
 		},
 		config = require("util").wrapsetup("nvim-treesitter.configs"),
 	},
