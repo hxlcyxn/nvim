@@ -17,7 +17,10 @@ require("lazy").setup("plugins", {
 	},
 	dev = {
 		path = "~/src",
-		pattern = "hxlcyxn",
+		patterns = {
+			"hxlcyxn",
+		},
+		fallback = true,
 	},
 	install = { colorscheme = { "stargaze", "quiet" } },
 	ui = {
