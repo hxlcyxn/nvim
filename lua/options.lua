@@ -1,5 +1,5 @@
-vim.api.nvim_exec("filetype plugin indent on", true)
-vim.api.nvim_exec("syntax enable", true)
+vim.api.nvim_exec2("filetype plugin indent on", { output = false })
+vim.api.nvim_exec2("syntax enable", { output = false })
 
 vim.g.mapleader = Settings.mapleader
 vim.g.maplocalleader = Settings.localleader
