@@ -5,7 +5,7 @@ Settings = {
 	colorscheme = "stargaze", -- "ayu"|"xresources"
 	background = "light", -- "dark"|"light"
 	border = "single",
-	guifont = "FiraCode Nerd Font",
+	guifont = "Intel One Mono",
 	fontsize = "12",
 
 	borderchars = { " " },
@@ -23,6 +23,8 @@ Settings = {
 
 	lisp_filetypes = { "fennel", "lisp", "yuck" },
 }
+
+vim.loader.enable()
 
 require("options")
 require("pm")
