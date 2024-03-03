@@ -15,6 +15,7 @@ vim.opt.scrolloff = 3
 vim.opt.sidescrolloff = 5
 
 vim.opt.mouse = "a"
+vim.o.mousemoveevent = true
 vim.opt.termguicolors = true
 vim.opt.background = Settings.background
 vim.opt.winblend = Settings.winblend
