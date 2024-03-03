@@ -22,15 +22,31 @@ return {
 		config = true,
 	},
 	{
+		"petertriho/cmp-git",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = function()
+			local format = require("cmp_git.format")
+			local sort = require("cmp_git.sort")
+
+			return {
+				filetypes = { "gitcommit" },
+			}
+		end,
+		config = true,
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
+			"petertriho/cmp-git",
 			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
+			"davidsierradz/cmp-conventionalcommits",
 			"lukas-reineke/cmp-under-comparator",
 			"saadparwaiz1/cmp_luasnip",
 			"Saecki/crates.nvim",
@@ -47,7 +63,8 @@ return {
 			local function has_words_before()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			local function tab_complete(fallback)
@@ -71,71 +88,107 @@ return {
 			end
 
 			return {
-				mapping = {
-					["<TAB>"] = cmp.mapping(tab_complete, { "i", "s" }),
-					["<S-TAB>"] = cmp.mapping(shift_tab_complete, { "i", "s" }),
-					["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-					["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
-					["<CR>"] = cmp.mapping.confirm({
-						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
+				cmp = {
+					completion = {
+						autocomplete = false,
+					},
+					mapping = {
+						["<TAB>"] = cmp.mapping(tab_complete, { "i", "s" }),
+						["<S-TAB>"] = cmp.mapping(shift_tab_complete, { "i", "s" }),
+						["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+						["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+						["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+						["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+						["<S-CR>"] = cmp.mapping.confirm({
+							behavior = cmp.ConfirmBehavior.Replace,
+							select = true,
+						}),
+					},
+					window = { documentation = { border = Settings.borderchars } },
+					sorting = {
+						comparators = {
+							require("copilot_cmp.comparators").priortize,
+							cmpr.offset,
+							cmpr.exact,
+							cmpr.score,
+							cmpr.recently_used,
+							require("cmp-under-comparator").under,
+							cmpr.locality,
+							cmpr.kind,
+							cmpr.sort_text,
+							cmpr.length,
+							cmpr.order,
+						},
+					},
+					sources = cmp.config.sources({
+						{ name = "copilot" },
+						{ name = "nvim_lsp" },
+						{ name = "luasnip" },
+						{ name = "nvim_lua" },
+						{ name = "path" },
+						{ name = "nvim_lsp_signature_help" },
+						{ name = "emoji" },
+						{ name = "latex_symbols" },
+						{ name = "crates" },
+					}),
+					snippet = {
+						expand = function(args)
+							require("luasnip").lsp_expand(args.body)
+						end,
+					},
+					formatting = {
+						format = lspkind.cmp_format({
+							preset = "default",
+							mode = "symbol",
+							menu = {
+								buffer = "[BUF]",
+								cmdline = "[CMD]",
+								copilot = "[COP]",
+								path = "[PATH]",
+								nvim_lsp = "[LSP]",
+								nvim_lua = "[VIM]",
+								luasnip = "[SNP]",
+								emoji = "[EMO]",
+								latex_symbols = "[LTX]",
+							},
+							symbol_map = { Copilot = "" },
+						}),
+					},
+					experimental = { ghost_text = true },
+				},
+				cmd = {
+					mapping = cmp.mapping.preset.cmdline(),
+					sources = cmp.config.sources({
+						{ name = "path" },
+						{ name = "cmdline" },
 					}),
 				},
-				window = { documentation = { border = Settings.borderchars } },
-				sorting = {
-					comparators = {
-						require("copilot_cmp.comparators").priortize,
-						cmpr.offset,
-						cmpr.exact,
-						cmpr.score,
-						cmpr.recently_used,
-						require("cmp-under-comparator").under,
-						cmpr.locality,
-						cmpr.kind,
-						cmpr.sort_text,
-						cmpr.length,
-						cmpr.order,
+				search = {
+					mapping = cmp.mapping.preset.cmdline(),
+					sources = cmp.config.sources({
+						{ name = "path" },
+					}),
+				},
+				filetypes = {
+					gitcommit = {
+						sources = cmp.config.sources({
+							{ name = "conventionalcommits" },
+							{ name = "git" },
+						}, {
+							{ name = "path" },
+						}),
 					},
 				},
-				sources = cmp.config.sources({
-					{ name = "copilot" },
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "nvim_lua" },
-					{ name = "path" },
-					{ name = "buffer" },
-					{ name = "emoji" },
-					{ name = "latex_symbols" },
-					{ name = "crates" },
-				}),
-				snippet = {
-					expand = function(args)
-						require("luasnip").lsp_expand(args.body)
-					end,
-				},
-				formatting = {
-					format = lspkind.cmp_format({
-						preset = "default",
-						mode = "symbol",
-						menu = {
-							buffer = "[BUF]",
-							cmdline = "[CMD]",
-							copilot = "[COP]",
-							path = "[PATH]",
-							nvim_lsp = "[LSP]",
-							nvim_lua = "[VIM]",
-							luasnip = "[SNP]",
-							emoji = "[EMO]",
-							latex_symbols = "[LTX]",
-						},
-						symbol_map = { Copilot = "" },
-					}),
-				},
-				experimental = { ghost_text = true },
 			}
 		end,
-		config = true,
+		config = function(_, opts)
+			require("cmp").setup(opts.cmp)
+			require("cmp").setup.cmdline(":", opts.cmd)
+			require("cmp").setup.cmdline("/", opts.search)
+
+			for filetype, opt in pairs(opts.filetypes) do
+				require("cmp").setup.filetype(filetype, opt)
+			end
+		end,
 	},
 }
