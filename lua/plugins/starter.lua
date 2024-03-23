@@ -6,5 +6,6 @@ return {
 		evaluate_single = true,
 		footer = "Have fun.",
 	},
-	config = require("util").wrapsetup("mini.starter"),
+	main = "mini.starter",
+	config = true,
 }
