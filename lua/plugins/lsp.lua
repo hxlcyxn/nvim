@@ -148,21 +148,16 @@ return {
 			return {
 				border = Settings.borderchars,
 				sources = {
-					null_ls.builtins.code_actions.ltrs,
 					null_ls.builtins.code_actions.refactoring,
-					null_ls.builtins.code_actions.shellcheck,
 					null_ls.builtins.code_actions.ts_node_action,
 
-					null_ls.builtins.diagnostics.clang_check,
 					null_ls.builtins.diagnostics.credo,
 					null_ls.builtins.diagnostics.deadnix,
-					null_ls.builtins.diagnostics.ltrs,
 					null_ls.builtins.diagnostics.selene.with({
 						condition = function(utils)
 							return utils.root_has_file({ "selene.toml" })
 						end,
 					}),
-					null_ls.builtins.diagnostics.shellcheck,
 
 					null_ls.builtins.formatting.alejandra,
 					null_ls.builtins.formatting.black,
@@ -170,7 +165,6 @@ return {
 					null_ls.builtins.formatting.fnlfmt,
 					null_ls.builtins.formatting.mix,
 					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.taplo,
 
 					null_ls.builtins.hover.dictionary,
 					null_ls.builtins.hover.printenv,
