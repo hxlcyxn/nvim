@@ -46,6 +46,7 @@ return {
 				nixd = {},
 				html = {},
 				rust_analyzer = {},
+				yamlls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
