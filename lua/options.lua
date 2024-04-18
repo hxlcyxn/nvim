@@ -27,7 +27,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.numberwidth = 2
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 vim.opt.cmdheight = 0
 
 vim.opt.list = true
