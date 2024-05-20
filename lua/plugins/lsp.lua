@@ -45,6 +45,7 @@ return {
 				jsonls = {},
 				nixd = {},
 				html = {},
+				nil_ls = {},
 				rust_analyzer = {},
 				yamlls = {},
 				lua_ls = {
