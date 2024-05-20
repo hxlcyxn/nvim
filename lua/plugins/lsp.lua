@@ -120,6 +120,7 @@ return {
 	},
 	{
 		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
+		enabled = false,
 		dependencies = "nvim-jdtls",
 		event = "VeryLazy",
 		opts = {
