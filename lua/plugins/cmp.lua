@@ -104,7 +104,7 @@ return {
 							select = true,
 						}),
 					},
-					window = { documentation = { border = Settings.borderchars } },
+					window = { documentation = { border = Settings.border } },
 					sorting = {
 						comparators = {
 							require("copilot_cmp.comparators").priortize,

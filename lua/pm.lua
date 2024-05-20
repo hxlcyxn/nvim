@@ -24,7 +24,7 @@ require("lazy").setup("plugins", {
 	},
 	install = { colorscheme = { "stargaze", "quiet" } },
 	ui = {
-		border = Settings.borderchars,
+		border = Settings.border,
 	},
 	checker = {
 		enabled = true,

@@ -4,11 +4,10 @@ Commands = {}
 Settings = {
 	colorscheme = "stargaze", -- "ayu"|"xresources"
 	background = "light", -- "dark"|"light"
-	border = "single",
 	guifont = "Intel One Mono",
 	fontsize = "12",
 
-	borderchars = { " " },
+	border = { " " },
 	winblend = 10,
 	pumblend = 10,
 

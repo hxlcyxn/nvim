@@ -43,7 +43,7 @@ return {
 				},
 				winblend = Settings.winblend,
 				border = true,
-				borderchars = Settings.borderchars,
+				borderchars = Settings.border,
 				set_env = { ["COLORTERM"] = "truecolor" },
 			},
 		},

@@ -3,7 +3,7 @@ return {
 	keys = { "<leader>", "<localleader>", '"', "'", "z", "C-w" },
 	opts = {
 		window = {
-			border = Settings.borderchars,
+			border = Settings.border,
 		},
 	},
 	config = true,

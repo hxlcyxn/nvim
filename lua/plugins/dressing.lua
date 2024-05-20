@@ -5,7 +5,7 @@ return {
 	-- },
 	event = "VeryLazy",
 	opts = {
-		input = { border = Settings.borderchars },
+		input = { border = Settings.border },
 		select = {
 			backend = "telescope",
 			telescope = {
@@ -14,11 +14,11 @@ return {
 					width = 0.5,
 					height = 0.4,
 				},
-				borderchars = Settings.borderchars,
+				borderchars = Settings.border,
 			},
 			get_config = function(opts)
 				if opts.kind == "codeaction" then
-					return { telescope = require("telescope.themes").get_cursor({ borderchars = Settings.borderchars }) }
+					return { telescope = require("telescope.themes").get_cursor({ borderchars = Settings.border }) }
 				end
 			end,
 		},

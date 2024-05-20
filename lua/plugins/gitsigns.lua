@@ -9,7 +9,7 @@ return {
 			delay = 10,
 		},
 		preview_config = {
-			border = Settings.borderchars,
+			border = Settings.border,
 		},
 		on_attach = function(bufnr)
 			vim.api.nvim_buf_set_keymap(

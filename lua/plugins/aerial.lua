@@ -17,7 +17,7 @@ return {
 	},
 	opts = {
 		nav = {
-			border = Settings.borderchars,
+			border = Settings.border,
 		},
 	},
 	config = function(_, opts)
