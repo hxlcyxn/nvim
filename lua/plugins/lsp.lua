@@ -25,7 +25,8 @@ return {
 		keys = {
 			{ "<leader>mc", vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "code actions" },
 			{ "<leader>mh", show_docs, desc = "show documentation" },
-			{ "<leader>mr", vim.lsp.buf.rename, desc = "rename node" },
+			{ "<leader>mn", vim.lsp.buf.rename, desc = "rename node" },
+			{ "<leader>mr", vim.lsp.buf.references, desc = "show references" },
 			{ "<leader>ms", vim.lsp.buf.signature_help, desc = "signature help" },
 			{ "<leader>mg", vim.lsp.buf.definition, desc = "go to definition" },
 			{ "<leader>mi", vim.lsp.buf.implementation, desc = "show implementation" },
