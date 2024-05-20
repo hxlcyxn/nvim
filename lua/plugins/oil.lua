@@ -23,13 +23,19 @@ return {
 		},
 		float = {
 			padding = 8,
-			border = Settings.border,
+			border = Settings.borderchars,
 		},
 		preview = {
-			border = Settings.border,
+			border = Settings.borderchars,
 		},
 		progress = {
-			border = Settings.border,
+			border = Settings.borderchars,
+		},
+		ssh = {
+			border = Settings.borderchars,
+		},
+		keymaps_help = {
+			border = Settings.borderchars,
 		},
 	},
 	config = true,
