@@ -47,6 +47,7 @@ return {
 				jsonls = {},
 				nixd = {},
 				html = {},
+				marksman = {},
 				nil_ls = {},
 				rust_analyzer = {},
 				yamlls = {},
