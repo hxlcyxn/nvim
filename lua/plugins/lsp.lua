@@ -31,6 +31,7 @@ return {
 			{ "<leader>mg", vim.lsp.buf.definition, desc = "go to definition" },
 			{ "<leader>mi", vim.lsp.buf.implementation, desc = "show implementation" },
 			{ "<leader>mf", vim.lsp.buf.format, desc = "format with lsp formatter" },
+			{ "<C-S>", vim.lsp.buf.signature_help, mode = { "i" }, desc = "signature help" },
 		},
 		opts = {
 			diagnostics = {
@@ -72,7 +73,7 @@ return {
 					end
 
 					if client.server_capabilities.inlayHintProvider then
-						vim.lsp.inlay_hint.enable(true, {bufnr = buffer})
+						vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 					end
 				end,
 			})
