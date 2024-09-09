@@ -19,7 +19,8 @@ return {
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
-			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+			-- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+			"sontungexpt/better-diagnostic-virtual-text",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		keys = {
@@ -36,7 +37,7 @@ return {
 		opts = {
 			diagnostics = {
 				virtual_text = false,
-				virtual_lines = { only_current_line = true },
+				-- virtual_lines = { only_current_line = true },
 				signs = true,
 				underline = true,
 				update_in_insert = true,
@@ -44,11 +45,12 @@ return {
 			},
 			servers = {
 				clangd = {},
-				jsonls = {},
-				nixd = {},
+				helm_ls = {},
 				html = {},
+				jsonls = {},
 				marksman = {},
 				nil_ls = {},
+				nixd = {},
 				rust_analyzer = {},
 				yamlls = {},
 				lua_ls = {
@@ -76,6 +78,8 @@ return {
 					if client.server_capabilities.inlayHintProvider then
 						vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 					end
+
+					require("better-diagnostic-virtual-text.api").setup_buf(buffer, {})
 				end,
 			})
 			vim.diagnostic.config(opts.diagnostics)
@@ -98,7 +102,7 @@ return {
 			local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 			local workspace_dir = vim.fn.stdpath("data") .. "/jdtls/" .. project_name
 			return {
-				cmd = { "jdt-language-server", "-data", workspace_dir },
+				cmd = { "jdtls", "-data", workspace_dir },
 				root_dir = vim.fs.dirname(vim.fs.find({ ".gradlew", ".git", "mvnw" }, { upward = true })[1]),
 			}
 		end,
@@ -110,16 +114,6 @@ return {
 				end,
 			})
 		end,
-	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		opts = {
-			suggestion = { enabled = false },
-			panel = { enabled = false },
-		},
-		config = true,
 	},
 	{
 		"https://gitlab.com/schrieveslaach/sonarlint.nvim",
@@ -190,10 +184,10 @@ return {
 		},
 		config = true,
 	},
-	{
-		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		config = true,
-	},
+	-- {
+	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	-- 	config = true,
+	-- },
 	{
 		"utilyre/barbecue.nvim",
 		name = "barbecue",

@@ -17,11 +17,6 @@ return {
 		end,
 	},
 	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = { "zbirenbaum/copilot.lua" },
-		config = true,
-	},
-	{
 		"petertriho/cmp-git",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = function()
@@ -50,7 +45,6 @@ return {
 			"lukas-reineke/cmp-under-comparator",
 			"saadparwaiz1/cmp_luasnip",
 			"Saecki/crates.nvim",
-			"zbirenbaum/copilot-cmp",
 			"onsails/lspkind.nvim",
 			"L3MON4D3/LuaSnip",
 		},
@@ -107,7 +101,6 @@ return {
 					window = { documentation = { border = Settings.border } },
 					sorting = {
 						comparators = {
-							require("copilot_cmp.comparators").priortize,
 							cmpr.offset,
 							cmpr.exact,
 							cmpr.score,
@@ -121,7 +114,6 @@ return {
 						},
 					},
 					sources = cmp.config.sources({
-						{ name = "copilot" },
 						{ name = "nvim_lsp" },
 						{ name = "luasnip" },
 						{ name = "nvim_lua" },
@@ -143,7 +135,6 @@ return {
 							menu = {
 								buffer = "[BUF]",
 								cmdline = "[CMD]",
-								copilot = "[COP]",
 								path = "[PATH]",
 								nvim_lsp = "[LSP]",
 								nvim_lua = "[VIM]",
@@ -151,7 +142,6 @@ return {
 								emoji = "[EMO]",
 								latex_symbols = "[LTX]",
 							},
-							symbol_map = { Copilot = "" },
 						}),
 					},
 					experimental = { ghost_text = true },
