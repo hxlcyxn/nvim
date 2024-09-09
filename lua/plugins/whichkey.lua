@@ -1,8 +1,8 @@
 return {
 	"folke/which-key.nvim",
-	keys = { "<leader>", "<localleader>", '"', "'", "z", "C-w" },
+	event = "VeryLazy",
 	opts = {
-		window = {
+		win = {
 			border = Settings.border,
 		},
 	},
