@@ -17,7 +17,6 @@ return {
 					end,
 				},
 				headings = presets.headings.glow_labels,
-				tables = presets.tables.border_single,
 			}
 		end,
 		config = true,
