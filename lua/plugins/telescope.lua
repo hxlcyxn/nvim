@@ -37,7 +37,8 @@ return {
 					height = 0.7,
 				},
 				file_ignore_patterns = {
-					"node_modules",
+					"^node_modules/",
+					"^build/"
 				},
 				winblend = Settings.winblend,
 				border = true,
