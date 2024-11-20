@@ -20,7 +20,7 @@ Settings = {
 
 	lsp_autstart = false,
 
-	lisp_filetypes = { "fennel", "lisp", "yuck" },
+	lisp_filetypes = { "fennel", "lisp", "scheme", "chicken", "yuck" },
 }
 
 vim.loader.enable()
