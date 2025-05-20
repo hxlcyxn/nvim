@@ -16,35 +16,33 @@ end
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-nvim-lsp",
-			-- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-			"sontungexpt/better-diagnostic-virtual-text",
-		},
 		event = { "BufReadPre", "BufNewFile" },
 		keys = {
-			{ "<leader>mc", vim.lsp.buf.code_action, mode = { "n", "v" }, desc = "code actions" },
-			{ "<leader>mh", show_docs, desc = "show documentation" },
-			{ "<leader>mn", vim.lsp.buf.rename, desc = "rename node" },
-			{ "<leader>mr", vim.lsp.buf.references, desc = "show references" },
-			{ "<leader>ms", vim.lsp.buf.signature_help, desc = "signature help" },
-			{ "<leader>mg", vim.lsp.buf.definition, desc = "go to definition" },
-			{ "<leader>mi", vim.lsp.buf.implementation, desc = "show implementation" },
-			{ "<leader>mf", vim.lsp.buf.format, desc = "format with lsp formatter" },
-			{ "<C-S>", vim.lsp.buf.signature_help, mode = { "i" }, desc = "signature help" },
+			{ "<leader>mc", vim.lsp.buf.code_action,    mode = { "n", "v" }, desc = "code actions" },
+			{ "<leader>md", vim.diagnostic.open_float,  mode = { "n" },      desc = "open diagnostic float" },
+			{ "<leader>mh", show_docs,                  mode = { "n" },      desc = "show documentation" },
+			{ "<leader>mn", vim.lsp.buf.rename,         mode = { "n" },      desc = "rename node" },
+			{ "<leader>mr", vim.lsp.buf.references,     mode = { "n" },      desc = "show references" },
+			{ "<leader>ms", vim.lsp.buf.signature_help, mode = { "n" },      desc = "signature help" },
+			{ "<leader>mg", vim.lsp.buf.definition,     mode = { "n" },      desc = "go to definition" },
+			{ "<leader>mi", vim.lsp.buf.implementation, mode = { "n" },      desc = "show implementation" },
+			{ "<leader>mf", vim.lsp.buf.format,         mode = { "n" },      desc = "format with lsp formatter" },
 		},
 		opts = {
 			diagnostics = {
 				virtual_text = false,
-				-- virtual_lines = { only_current_line = true },
+				virtual_lines = false,
 				signs = true,
 				underline = true,
 				update_in_insert = true,
 				severity_sort = true,
+				jump = {
+					float = true,
+				},
 			},
 			servers = {
 				clangd = {},
+				gopls = {},
 				helm_ls = {},
 				html = {},
 				jsonls = {},
@@ -52,14 +50,38 @@ return {
 				nil_ls = {},
 				nixd = {},
 				rust_analyzer = {},
-				yamlls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
 							workspace = { library = vim.api.nvim_get_runtime_file("", true), preloadFileSize = 200 },
-							format = { enable = false },
+							format = {
+								enable = true,
+								defaultConfig = {
+									indent_style = Settings.indent_style:sub(1, -2), -- remove last "s"
+									indent_size = tostring(Settings.indent),
+									tab_width = tostring(Settings.indent),
+									quote_style = "double",
+									table_separator_style = "comma",
+									trailing_table_separator = "smart",
+									space_after_comment_dash = "true",
+									end_statement_with_semicolon = "never",
+								},
+							},
 							hint = { enabled = true },
 							telemetry = { enabled = false },
+						},
+					},
+				},
+				yamlls = {
+					settings = {
+						yaml = {
+							format = {
+								enable = true,
+								singleQuote = false,
+							},
+							schemaStore = {
+								enable = true,
+							},
 						},
 					},
 				},
@@ -67,19 +89,15 @@ return {
 		},
 		config = function(_, opts)
 			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("my.lsp", {}),
 				callback = function(args)
-					local buffer = args.buf
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-					if client == nil then
-						return
+					local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+					if client:supports_method("textDocument/inlayHint") then
+						vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
 					end
-
-					if client.server_capabilities.inlayHintProvider then
-						vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-					end
-
-					require("better-diagnostic-virtual-text.api").setup_buf(buffer, {})
+					-- if client:supports_method("textDocument/documentColor") then
+					-- vim.lsp.document_color.enable(true, args.buf)
+					-- end
 				end,
 			})
 			vim.diagnostic.config(opts.diagnostics)
@@ -91,7 +109,8 @@ return {
 					capabilities = vim.deepcopy(capabilities),
 				}, server_opts or {})
 
-				require("lspconfig")[server].setup(server_opts)
+				vim.lsp.config(server, server_opts)
+				vim.lsp.enable(server)
 			end
 		end,
 	},
@@ -148,9 +167,6 @@ return {
 			return {
 				border = Settings.border,
 				sources = {
-					null_ls.builtins.code_actions.refactoring,
-					null_ls.builtins.code_actions.ts_node_action,
-
 					null_ls.builtins.diagnostics.credo,
 					null_ls.builtins.diagnostics.deadnix,
 					null_ls.builtins.diagnostics.selene.with({
@@ -164,7 +180,7 @@ return {
 					null_ls.builtins.formatting.clang_format,
 					null_ls.builtins.formatting.fnlfmt,
 					null_ls.builtins.formatting.mix,
-					null_ls.builtins.formatting.stylua,
+					-- null_ls.builtins.formatting.stylua,
 
 					null_ls.builtins.hover.dictionary,
 					null_ls.builtins.hover.printenv,
@@ -180,14 +196,10 @@ return {
 		},
 		cmd = "Trouble",
 		keys = {
-			{ "<leader>me", cmd("Trouble workspace_diagnostics"), desc = "show diagnostics" },
+			{ "<leader>me", cmd("Trouble diagnostics"), desc = "show diagnostics" },
 		},
 		config = true,
 	},
-	-- {
-	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-	-- 	config = true,
-	-- },
 	{
 		"utilyre/barbecue.nvim",
 		name = "barbecue",

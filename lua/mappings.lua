@@ -2,10 +2,10 @@ local cmd = require("util").cmd
 local map = vim.api.nvim_set_keymap
 
 -- remove default lsp binds
-vim.keymap.del("n", "grn")
-vim.keymap.del("n", "gra")
-vim.keymap.del("n", "grr")
-vim.keymap.del("i", "<C-S>")
+-- vim.keymap.del("n", "grn")
+-- vim.keymap.del("n", "gra")
+-- vim.keymap.del("n", "grr")
+-- vim.keymap.del("i", "<C-S>")
 
 map("n", "<leader>S", cmd("update"), { desc = "save changes" })
 map("n", "<leader>q", cmd("quit"), { desc = "quit nvim" })

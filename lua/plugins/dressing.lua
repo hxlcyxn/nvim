@@ -1,3 +1,4 @@
+-- TODO: replace because archived
 return {
 	"stevearc/dressing.nvim",
 	-- dependencies = {
