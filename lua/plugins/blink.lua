@@ -14,7 +14,7 @@ return {
 		completion = {
 			documentation = {
 				auto_show = true,
-				auto_showdelay_ms = 0,
+				auto_show_delay_ms = 0,
 			},
 			keyword = {
 				range = "full",
